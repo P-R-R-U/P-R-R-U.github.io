@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Module 3: Addressing files, reading in data, and basic statistics | Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats</title>
+  <meta name="description" content="3 Module 3: Addressing files, reading in data, and basic statistics | Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Module 3: Addressing files, reading in data, and basic statistics | Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Module 3: Addressing files, reading in data, and basic statistics | Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats" />
+  
+  
+  
+
+<meta name="author" content="Stefano Occhipinti" />
+
+
+<meta name="date" content="2020-04-26" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="module-2-basics.html"/>
+<link rel="next" href="module-4-regression-diagnostics.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Module 1: Prelude and Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#is-this-for-you"><i class="fa fa-check"></i><b>1.1</b> Is this for you?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#why-this-guide"><i class="fa fa-check"></i><b>1.2</b> Why this guide?</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#about-r"><i class="fa fa-check"></i><b>1.3</b> About R</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#brief-outline"><i class="fa fa-check"></i><b>1.4</b> Brief outline</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="module-2-basics.html"><a href="module-2-basics.html"><i class="fa fa-check"></i><b>2</b> Module 2: Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="module-2-basics.html"><a href="module-2-basics.html#tips-for-the-road-ahead"><i class="fa fa-check"></i><b>2.1</b> Tips for the road ahead</a></li>
+<li class="chapter" data-level="2.2" data-path="module-2-basics.html"><a href="module-2-basics.html#r-versus-spss-and-other-gp-stats-software"><i class="fa fa-check"></i><b>2.2</b> R versus SPSS and other GP stats software</a></li>
+<li class="chapter" data-level="2.3" data-path="module-2-basics.html"><a href="module-2-basics.html#r-is-entirely-code-based"><i class="fa fa-check"></i><b>2.3</b> R is entirely code-based</a></li>
+<li class="chapter" data-level="2.4" data-path="module-2-basics.html"><a href="module-2-basics.html#r-studio-an-app-for-efficiently-controlling-r"><i class="fa fa-check"></i><b>2.4</b> R Studio: An app for efficiently controlling R</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="module-2-basics.html"><a href="module-2-basics.html#customising-your-installation-of-r-studio-and-fixing-a-couple-of-problems-with-the-default-setup"><i class="fa fa-check"></i><b>2.4.1</b> Customising your installation of R Studio and fixing a couple of problems with the default setup</a></li>
+<li class="chapter" data-level="2.4.2" data-path="module-2-basics.html"><a href="module-2-basics.html#pesky-but-important-change-to-r-studio-default-pane-layout-that-will-be-set-and-forget"><i class="fa fa-check"></i><b>2.4.2</b> <strong>Pesky but important change to R Studio default pane layout that will be “set and forget”</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="module-2-basics.html"><a href="module-2-basics.html#r-project-files"><i class="fa fa-check"></i><b>2.5</b> R Project Files</a></li>
+<li class="chapter" data-level="2.6" data-path="module-2-basics.html"><a href="module-2-basics.html#preparing-the-r-project-directory"><i class="fa fa-check"></i><b>2.6</b> Preparing the R project directory</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="module-2-basics.html"><a href="module-2-basics.html#before-going-on-id-like-you-to-now-copy-the-course-files-into-the-r-project-directories."><i class="fa fa-check"></i><b>2.6.1</b> Before going on, I’d like you to now copy the course files into the R project directories.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="module-2-basics.html"><a href="module-2-basics.html#a-schema-for-how-r-works"><i class="fa fa-check"></i><b>2.7</b> A Schema for How R Works</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="module-2-basics.html"><a href="module-2-basics.html#r-has-a-lean-and-efficient-philosophy"><i class="fa fa-check"></i><b>2.7.1</b> R has a lean and efficient philosophy</a></li>
+<li class="chapter" data-level="2.7.2" data-path="module-2-basics.html"><a href="module-2-basics.html#things-you-will-only-do-once-each-time-you-re-install-r-on-a-computer"><i class="fa fa-check"></i><b>2.7.2</b> Things you will only do once each time you (re-)install R on a computer</a></li>
+<li class="chapter" data-level="2.7.3" data-path="module-2-basics.html"><a href="module-2-basics.html#things-you-will-only-need-to-do-once-in-any-new-r-session-on-any-type-of-computer"><i class="fa fa-check"></i><b>2.7.3</b> Things you will only need to do once in any new R session on any type of computer</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="module-2-basics.html"><a href="module-2-basics.html#objects-and-functions"><i class="fa fa-check"></i><b>2.8</b> OBJECTS and FUNCTIONS</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="module-2-basics.html"><a href="module-2-basics.html#the-last-important-r-concepts-before-looking-at-some-basic-code"><i class="fa fa-check"></i><b>2.8.1</b> The last important R concepts before looking at some basic code</a></li>
+<li class="chapter" data-level="2.8.2" data-path="module-2-basics.html"><a href="module-2-basics.html#clearing-objects-a-line-of-code-you-will-see-again-and-again"><i class="fa fa-check"></i><b>2.8.2</b> Clearing objects: a line of code you will see again and again</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="module-2-basics.html"><a href="module-2-basics.html#in-r-everything-we-do-is-a-function"><i class="fa fa-check"></i><b>2.9</b> In R, everything we do is a <em>function()</em></a><ul>
+<li class="chapter" data-level="2.9.1" data-path="module-2-basics.html"><a href="module-2-basics.html#there-are-exceptions-to-the-below-but-this-will-get-everyone-on-the-same-page-to-begin-with"><i class="fa fa-check"></i><b>2.9.1</b> There are exceptions to the below but this will get everyone on the same page to begin with</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="module-2-basics.html"><a href="module-2-basics.html#end-of-module"><i class="fa fa-check"></i><b>2.10</b> End of module</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><i class="fa fa-check"></i><b>3</b> Module 3: Addressing files, reading in data, and basic statistics</a><ul>
+<li class="chapter" data-level="3.1" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#reading-data-into-rusing-nesting"><i class="fa fa-check"></i><b>3.1</b> Reading data into R—using nesting!</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#first-clear-the-workspace-with-the-appropriate-code-at-the-top-of-the-file."><i class="fa fa-check"></i><b>3.1.1</b> First, clear the workspace with the appropriate code at the top of the file.</a></li>
+<li class="chapter" data-level="3.1.2" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#next-you-will-load-the-required-package."><i class="fa fa-check"></i><b>3.1.2</b> Next, you will load the required package.</a></li>
+<li class="chapter" data-level="3.1.3" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#now-you-will-try-to-read-in-the-data-and-you-will-see-how-nested-functions-and-objects-work-in-practice."><i class="fa fa-check"></i><b>3.1.3</b> Now, you will try to read in the data and you will see how nested functions and objects work in practice.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#describing-data-frames-and-variables"><i class="fa fa-check"></i><b>3.2</b> Describing data frames and variables</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#quickly-summarise-a-whole-data-frame-object"><i class="fa fa-check"></i><b>3.2.1</b> Quickly summarise a whole data frame object</a></li>
+<li class="chapter" data-level="3.2.2" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#summarising-variables-with-descriptive-statistics"><i class="fa fa-check"></i><b>3.2.2</b> Summarising variables with descriptive statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#reading-files-with-r-by-using-the-here-package"><i class="fa fa-check"></i><b>3.3</b> Reading files with R by using the <code>here</code> package</a></li>
+<li class="chapter" data-level="3.4" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#reading-csv-files-and-turning-them-into-data-frame-objects"><i class="fa fa-check"></i><b>3.4</b> Reading CSV files and turning them into data frame objects</a></li>
+<li class="chapter" data-level="3.5" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#preparing-data-to-have-numerics-and-factors-as-appropriate-especially-when-working-with-spss-files"><i class="fa fa-check"></i><b>3.5</b> Preparing data to have numerics and Factors as appropriate (especially when working with SPSS files)</a></li>
+<li class="chapter" data-level="3.6" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#end-of-module-1"><i class="fa fa-check"></i><b>3.6</b> End of module</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html"><i class="fa fa-check"></i><b>4</b> Module 4: Regression diagnostics</a><ul>
+<li class="chapter" data-level="4.1" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#ols-regression-in-r"><i class="fa fa-check"></i><b>4.1</b> OLS Regression in R</a></li>
+<li class="chapter" data-level="4.2" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#working-with-the-lm-object"><i class="fa fa-check"></i><b>4.2</b> Working with the <em>lm()</em> object</a></li>
+<li class="chapter" data-level="4.3" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#simple-diagnostics"><i class="fa fa-check"></i><b>4.3</b> Simple Diagnostics</a></li>
+<li class="chapter" data-level="4.4" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#running-regressions-dropping-influential-observations"><i class="fa fa-check"></i><b>4.4</b> Running regressions dropping influential observations</a></li>
+<li class="chapter" data-level="4.5" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#end-of-module-2"><i class="fa fa-check"></i><b>4.5</b> End of module</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html"><i class="fa fa-check"></i><b>5</b> Module 5: Regression and GLM procedures</a><ul>
+<li class="chapter" data-level="5.1" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#hierarchical-regression"><i class="fa fa-check"></i><b>5.1</b> Hierarchical regression</a></li>
+<li class="chapter" data-level="5.2" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#moderated-multiple-regression"><i class="fa fa-check"></i><b>5.2</b> Moderated multiple regression</a></li>
+<li class="chapter" data-level="5.3" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#mediation"><i class="fa fa-check"></i><b>5.3</b> Mediation</a></li>
+<li class="chapter" data-level="5.4" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#anova"><i class="fa fa-check"></i><b>5.4</b> ANOVA</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#issue-no.1"><i class="fa fa-check"></i><b>5.4.1</b> Issue no.1</a></li>
+<li class="chapter" data-level="5.4.2" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#issue-no.-2"><i class="fa fa-check"></i><b>5.4.2</b> Issue no. 2</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#end-of-module-3"><i class="fa fa-check"></i><b>5.5</b> End of module</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="module-3-addressing-files-reading-in-data-and-basic-statistics" class="section level1">
+<h1><span class="header-section-number">3</span> Module 3: Addressing files, reading in data, and basic statistics</h1>
+<p><strong>N.b., the <em>basics.R</em> file has the R code needed for this module. My advice is to have it open in R Studio and step through it as you work through this material. You can navigate to your R Project <em>code</em> folder via the Files pane in R Studio then click once on the appropriate .R file. The first tasks explain to you how to step through the R code. The code files I will use are extensively commented and this should complement what is here. After this module, I will leave you a small series of exercises to get you to apply your learning from the module to new material.</strong></p>
+<div id="reading-data-into-rusing-nesting" class="section level2">
+<h2><span class="header-section-number">3.1</span> Reading data into R—using nesting!</h2>
+<p>Let’s begin to apply the knowledge gained so far. You will immediately use nested functions to read in some data (by first seeing what happens when you don’t nest). For this task, I’ll be using a slightly simplified version of the BDRV data that we use for 6020PSY. There is already an SPSS version of this data that you will have copied into your R Project as I asked you earlier. (N.b., <em>don’t</em> use SPSS data file from 6020PSY tutes. The data is the same but the format may confuse you.)</p>
+<div id="first-clear-the-workspace-with-the-appropriate-code-at-the-top-of-the-file." class="section level3">
+<h3><span class="header-section-number">3.1.1</span> First, clear the workspace with the appropriate code at the top of the file.</h3>
+<p>In R Studio you can run code in two pretty much equivalent ways.</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Place the cursor anywhere in a line of code</strong>, the first line of code you want to run, and press <strong>Ctrl + Enter</strong> (all OS). This will automatically select the line of code and <em>any</em> comments before it and run them. You can check this because the R console pane will echo the code sent to it and any output generated. In this case, there is no further ouput as the <em>rm()</em> function just removes things. As it happens, some of the widely used, basic functions I will show you first don’t necessarily need to be sent to an object as they send informative output direct to the console!
+<img src="images/RStudioCursorInCode.png" alt="Note cursor in list" />
+<img src="images/RStudioCursOutput.png" alt="Note echoed code in console" /></p></li>
+<li><p>Select the specific section of code (with or without comments) and press <strong>Ctrl + Enter</strong> (all OS). As you might imagine, this will run the entire block you have selected.<br />
+<img src="images/RStudioSelectCode.png" /></p></li>
+</ol>
+<p>That’s how you will run every bit of code in R. An advantage of the first method above is that after you have run the code, the cursor is already poised at the next line. In this way, by pressing <strong>Ctrl + Enter</strong> in sequence, you will step through many lines of R code in order, line by line, so you can pause and inspect output or other things after each line. This is particularly useful if you have a well laid out, sequenced code file. An advantage of the second method is that it allows very precise sections of code to be run all at once and when you know a whole block “just works” and will run a regression, display some output and generate some plots, you can immediately run it. R is extremely fast-much faster than SPSS in most things, so you will be surprised how quickly output and graphics might pop up. Neither is the <em>correct</em> method. Use each in the appropriate circumstances.</p>
+</div>
+<div id="next-you-will-load-the-required-package." class="section level3">
+<h3><span class="header-section-number">3.1.2</span> Next, you will load the required package.</h3>
+<p>You are going to read an SPSS file. Base R is set up to read either CSV files (comma-separated values; essentially, the text file version of a spreadsheet that are used universally) or RData files (R’s own format that virtually no one uses). To read <em>external</em> data formats, such as SPSS, or Stata, or SAS files, base R needs the <code>foreign</code> package (don’t worry, R isn’t racist). Do this with the <em>library()</em> function. Each package is loaded in a separate call to <em>library()</em>. No output is generated by this function and there is no need to assign it to an object. Run the appropriate line in the <em>basics.R</em> file.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">library</span>(foreign)</a></code></pre></div>
+</div>
+<div id="now-you-will-try-to-read-in-the-data-and-you-will-see-how-nested-functions-and-objects-work-in-practice." class="section level3">
+<h3><span class="header-section-number">3.1.3</span> Now, you will try to read in the data and you will see how nested functions and objects work in practice.</h3>
+<p>The <em>read.spss()</em> function comes from the <code>foreign</code> package, and its name is what it does. Assuming you put the BDRV data into the <em>data</em> folder of your project as directed, if you run the next line you will command R to read the data file.</p>
+<p><code>read.spss(&quot;data/BDRVdataR.sav&quot;)</code></p>
+<p>But the problem is that that is all it does and then it spits the data it has read haphazardly out into the console-and there is a lot of it!</p>
+<div class="figure">
+<img src="images/RStudioPartialOut.png" alt="Figure 6 | Partial output from a poorly planned piece of code" />
+<p class="caption"><strong>Figure 6</strong> | Partial output from a poorly planned piece of code</p>
+</div>
+<p>It’s clear there are variables from the BDRV dataset but the presentation is quite garbled. Next, you’ll try another function and <strong>nest</strong> <em>read.spss()</em> inside it.</p>
+<p><code>data.frame(read.spss(&quot;data/BDRVdataR.sav&quot;))</code></p>
+<p><img src="images/RStudioReadDF.png" /></p>
+<p>This time it is better in that it clearly has organised the data file a lot more. In R, data sets (i.e., what is in the data window of SPSS) are referred to as <em>data frames</em>. But note that the <em>data.frame()</em> function still outputs all the data into the console. Again, R is merely doing what you commanded. To fix this requires only one more element and that is an <em>object</em>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">binge &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">read.spss</span>(<span class="st">&quot;data/BDRVdataR.sav&quot;</span>))</a></code></pre></div>
+<p>This has run and you will see there is no output. Part by part, this line means:</p>
+<ul>
+<li>binge &lt;- | <em>assign</em> the output of the following into an object called <em>binge</em></li>
+<li>data.frame(read.spss(“data/BDRVdataR.sav”)) | read the SPSS data file called <em>BDRVdataR.sav</em> in the directory called <em>data</em> off the root project directory and output that into the function that creates an R <em>data frame</em></li>
+</ul>
+<p>The whole line:</p>
+<ol style="list-style-type: decimal">
+<li>reads an SPSS data file and</li>
+<li>converts it to an R-formatted data frame which it</li>
+<li>feeds into an object called <em>binge</em> that can now be used in the rest of the R session.</li>
+</ol>
+<p>I chose the name <em>binge</em> arbitrarily because it fits, it’s short, and it has no spaces! Some hard core R instructional materials are full of examples where they call every single data frame object <em>df</em>. Don’t use that in your actual work!</p>
+<p>When this line runs, you can see there is no output besides the code that has been echoed back. This is because the output of the nested functions in the code has been fed directly into the object called <em>binge</em>. If you check your <em>environment</em> pane, that should now be below the <em>source</em> pane on the left, you will see the binge object and further that it contains 778 observations (i.e., rows or participants) of 51 variables (see Figure 7. Because binge is a data frame object, R automatically presents it with the appropriate terms, rather than a generic statement like <em>rows = 778, columns = 51</em>. This is a very important aspect of R, that the user can code <em>generic</em> operations like assignment to objects and R is programmed to recognise any necessary variations.</p>
+<div class="figure">
+<img src="images/RStudioEnvBinge.png" alt="Figure 7 | Environment pane showing newly created binge object" />
+<p class="caption"><strong>Figure 7</strong> | <em>Environment</em> pane showing newly created <em>binge</em> object</p>
+</div>
+<p>Next, I will show you how to work directly with this object. After the next section, I will show you a more efficient means to address files in R Projects.</p>
+</div>
+</div>
+<div id="describing-data-frames-and-variables" class="section level2">
+<h2><span class="header-section-number">3.2</span> Describing data frames and variables</h2>
+<div id="quickly-summarise-a-whole-data-frame-object" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> Quickly summarise a whole data frame object</h3>
+<p>You may want to check that you have read in the data set correctly into the R data frame or you may just want a quick summary of a data set before working with it. In these cases, use the <em>str()</em> function (stands for <em>str</em>ucture). The code is very simple and the output is not even assigned to an object because it is useful to have the output echoed to the console pane. Below, I have placed a screenshot of the top portion of the output. Your output may differ slightly because I have increased font size for the screenshot. The numbers will be exactly the same. When you actually run the line, you will see that it summarises every variable in the data frame.</p>
+<p><code>str(binge)</code></p>
+<div class="figure">
+<img src="images/RStudioStrBinge.png" alt="Figure 8 | Partial output from running function str() on binge object" />
+<p class="caption"><strong>Figure 8</strong> | Partial output from running function <em>str()</em> on <em>binge</em> object</p>
+</div>
+<p>Note the format of the output The <strong>$</strong> denotes a variable which is named in the next column. After the colon “:” come, respectively, the variable type (numeric vs Factor, see below) and some information about the variable which is different according to type. For <strong>numerics</strong>, <em>str()</em> has output the values contained in the first few observations. For <strong>Factors</strong>, it tells us how many levels the Factor has, any associated labels (in SPSS-speak, these would be the value labels) it orders these alphabetically, and then prints out the first few actual values of the variable. For example, <em>bornaus</em> is a Factor with 2 levels (i.e., <em>no</em> and <em>yes</em>) and the first few values are <em>2 2 1 1 2 2 2 1 1 2</em>. Numeric variables, such as <em>deathpen</em> and <em>multicultualism</em> have no labels and only the first few values are output (e.g., <em>deathpen</em>: <em>1 5 4 1 2 3 3 5 1 5</em>). Below, I will discuss how to obtain numeric and Factor variables in different circumstances. I have modified the original BDRV data in SPSS to make this clearer for this guide.</p>
+<p>The benefit of <em>str()</em> is that it very quickly and efficiently summarises our entire data set. You can also literally copy-and-paste the output into a text editor like Notepad in Windows or Mac equivalent (try it now) to create a document that summarises the data and can be shared with the whole lab or other colleagues. There are also easy tricks to make it very nice, even using text-to-tables, in word processors.</p>
+<p>Whatever you <em>thought</em> was going in, <em>str()</em> shows what <em>is actually in</em> the created data frame object and that is what counts for R. If this doesn’t match expectations, you’ll need to investigate. There are functions that produce similar, but less detailed information, but I like the “just right” complexity that <em>str()</em> has. You’ll probably only need to run it once when you first create a data frame object. Once you know the code creates the expected data frame from the data source, you can run it again and again in each R session to get the same data frame. Here is another R philosophy: <strong>R users don’t tend to save data frames. They save the correct code to generate them</strong>. You’ll see this in action soon. It’s actually a very efficient way to avoid having 6 files called some variation of <em>thesis_data_final</em> in your folders! Leave the data as is and create and save the code that manipulates it and puts it into an R object that is used for further analysis. Because it’s code and will have an audit trail, it’s easy to recreate your steps each time and arrive at the same object.</p>
+</div>
+<div id="summarising-variables-with-descriptive-statistics" class="section level3">
+<h3><span class="header-section-number">3.2.2</span> Summarising variables with descriptive statistics</h3>
+<p>Study the next piece of code very carefully. It’s very complex. To create summary descriptives as appropriate for each variable in a data frame, use the following code:</p>
+<p><code>summary(binge)</code></p>
+<p>Again, I have screenshotted a portion (Fig. 9); this time a portion from the top and then the bottom of the output generated.</p>
+<p><img src="images/RStudioSummBinge_top.png" /></p>
+<p>* * *</p>
+<div class="figure">
+<img src="images/RStudioSummBinge_bottom.png" alt="Figure 9 | Partial output from running function summary() on binge" />
+<p class="caption"><strong>Figure 9</strong> | Partial output from running function <em>summary()</em> on <em>binge</em></p>
+</div>
+<p>And again, R knows what to do with the data frame object that is input to <em>summary()</em>. It gives the numbers in each category for the Factors; and the usual descriptive statistics for the numerics. The are plenty of packages that provide summary stats in different ways and that is one of the benefits of R. Users have created packages with functions that may be helpful to other users and tens of thousands of these are available for free from CRAN, where you first downloaded R. Many stats books have specially created R packages that contain all the data sets and usually functions to do the different analyses. This is really a vast topic and I won’t just skim it here. I want to make sure you can at least do the task in one basic, dependable way first.</p>
+<p><strong>Now you are going to flex your R muscles a tiny bit</strong>. Do you always want to get summary statistics for every variable in a data frame? Here is how you specify one single variable. And as a bonus, you are learning the generic way to identify a specific variable in a specific data frame. You might easily have multiple data frames in your environment with similarly named variables (perhaps to compare them) and you want to be able to specify, <em>this variable</em> in <em>this data frame</em>. The appropriate lines of code are below (this time I have echoed the entire output into the document).</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">summary</span>(binge<span class="op">$</span>ethnic)</a></code></pre></div>
+<pre><code>## Aboriginal and/or Torres Strait Islander 
+##                                       13 
+##                                  African 
+##                                       10 
+##                                    Asian 
+##                                       64 
+##                                 European 
+##                                      563 
+##                                   Indian 
+##                                       19 
+##                                    Maori 
+##                                       11 
+##                           Middle Eastern 
+##                                       11 
+##                                    Other 
+##                                       87</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">summary</span>(binge<span class="op">$</span>belief9)</a></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    1.00    4.00    5.00    4.91    6.00    7.00</code></pre>
+<ol style="list-style-type: decimal">
+<li><p>Note that this code uses exactly the same function but different parameters are fed to it. Instead of a whole data frame object, a variable is specified. In the first line, <em>ethnic</em> is a Factor and triggers appropriate output. In the second line, <em>belief9</em> is a numeric (i.e., continuous scale item) and that also triggers appropriate output. R figures it out.</p></li>
+<li><p>Note the “$” operator. This essentially means, <em>you are about to specify a subpart of an object</em>. In this case, the object is a dataframe and the subpart is a variable. The generic template is:</p></li>
+</ol>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">data_frame<span class="op">$</span>variable</a></code></pre></div>
+<p>There are many types of objects in R and whole chapters and books have been written about this. For now, you just need to use this tiny bit of coding language to deal with your data frames!</p>
+<p>Many times in real data analysis, you will want to specify a group or subset of variables, such as the items of a scale. It would be tedious to type out a separate line such as <code>summary(binge$belief1)</code> for every item in a 20-item scale and you won’t need to. There is a subsetting function whose job is to select subsets of parts (e.g., variables; observations) of an object (e.g., a data frame). Below, I use it to select subsets and nest it in the <em>summary()</em> function.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">summary</span>(<span class="kw">subset</span>(binge, <span class="dt">select=</span>belief1<span class="op">:</span>belief20))</a></code></pre></div>
+<pre><code>##     belief1         belief2         belief3         belief4     
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:4.000   1st Qu.:1.000   1st Qu.:4.000   1st Qu.:2.000  
+##  Median :5.000   Median :2.000   Median :5.000   Median :3.000  
+##  Mean   :4.968   Mean   :2.611   Mean   :5.004   Mean   :3.514  
+##  3rd Qu.:6.000   3rd Qu.:4.000   3rd Qu.:6.000   3rd Qu.:5.000  
+##  Max.   :7.000   Max.   :7.000   Max.   :7.000   Max.   :7.000  
+##     belief5         belief6         belief7         belief8         belief9    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.00  
+##  1st Qu.:2.000   1st Qu.:4.000   1st Qu.:4.000   1st Qu.:4.000   1st Qu.:4.00  
+##  Median :4.000   Median :5.000   Median :5.000   Median :5.000   Median :5.00  
+##  Mean   :3.711   Mean   :4.891   Mean   :4.995   Mean   :4.963   Mean   :4.91  
+##  3rd Qu.:5.000   3rd Qu.:6.000   3rd Qu.:6.000   3rd Qu.:6.000   3rd Qu.:6.00  
+##  Max.   :7.000   Max.   :7.000   Max.   :7.000   Max.   :7.000   Max.   :7.00  
+##     belief10        belief11        belief12        belief13       belief14    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.00   Min.   :1.000  
+##  1st Qu.:4.000   1st Qu.:2.000   1st Qu.:2.000   1st Qu.:2.00   1st Qu.:4.000  
+##  Median :6.000   Median :4.000   Median :4.000   Median :3.00   Median :5.500  
+##  Mean   :5.246   Mean   :3.746   Mean   :3.653   Mean   :3.26   Mean   :5.192  
+##  3rd Qu.:6.000   3rd Qu.:6.000   3rd Qu.:5.000   3rd Qu.:4.00   3rd Qu.:7.000  
+##  Max.   :7.000   Max.   :7.000   Max.   :7.000   Max.   :7.00   Max.   :7.000  
+##     belief15        belief16        belief17        belief18    
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:4.000   1st Qu.:4.000   1st Qu.:3.000   1st Qu.:3.000  
+##  Median :5.000   Median :5.000   Median :4.500   Median :4.000  
+##  Mean   :5.031   Mean   :4.865   Mean   :4.281   Mean   :4.283  
+##  3rd Qu.:6.000   3rd Qu.:6.000   3rd Qu.:6.000   3rd Qu.:6.000  
+##  Max.   :7.000   Max.   :7.000   Max.   :7.000   Max.   :7.000  
+##     belief19        belief20    
+##  Min.   :1.000   Min.   :1.000  
+##  1st Qu.:6.000   1st Qu.:4.000  
+##  Median :7.000   Median :6.000  
+##  Mean   :6.084   Mean   :5.248  
+##  3rd Qu.:7.000   3rd Qu.:6.000  
+##  Max.   :7.000   Max.   :7.000</code></pre>
+<p>The same function can be used to select specific groups of observations (e.g., just the female participants) or subsets of observations and variables together, by varying the parameters that are set. The <em>subset()</em> function is clever enough to recognise that <em>sex</em> is a variable from the named data frame object <em>binge</em> in the input. This also demonstrates that functions may have many <em>possible</em> parameters but it is rarely necessary to specify any but a few key ones when they are actually used in code.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">summary</span>(<span class="kw">subset</span>(binge, sex <span class="op">==</span><span class="st"> &quot;female&quot;</span>, <span class="dt">select=</span>belief1<span class="op">:</span>belief5))</a></code></pre></div>
+<pre><code>##     belief1         belief2         belief3         belief4     
+##  Min.   :1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
+##  1st Qu.:4.000   1st Qu.:1.000   1st Qu.:4.000   1st Qu.:2.000  
+##  Median :5.000   Median :2.000   Median :5.000   Median :3.000  
+##  Mean   :4.989   Mean   :2.615   Mean   :5.085   Mean   :3.367  
+##  3rd Qu.:6.000   3rd Qu.:4.000   3rd Qu.:6.000   3rd Qu.:5.000  
+##  Max.   :7.000   Max.   :7.000   Max.   :7.000   Max.   :7.000  
+##     belief5     
+##  Min.   :1.000  
+##  1st Qu.:2.000  
+##  Median :4.000  
+##  Mean   :3.732  
+##  3rd Qu.:5.000  
+##  Max.   :7.000</code></pre>
+<p>This output prints out the descriptive statistics for items 1 to 5 of the belief scale just for female participants. There is much more complexity possible with the <em>subset()</em> function. Note again that nothing has changed about the <em>summary()</em> function; instead, the <em>subset()</em> function has been nested inside to change the input that <em>summary()</em> gets. In turn, you could use <em>subset()</em> nested appropriately inside <em>lm()</em> to specify the observations to be used for a regression (e.g., run this regression just for the female participants; or the participants who score more than a cutoff score on another instrument). The system is <strong>extremely</strong> modular. <strong>As much as possible, use the same functions to do similar tasks and R can almost always figure out how to adapt them</strong> This is not just “cool” but it helps to avoid silly errors that get in the way of data analysis.</p>
+<p><strong>In R, there are often many ways to do the same basic task: another useful package and function for descriptive and summary statistics</strong>.<br />
+There is always another way to do the same thing in R and this is both a benefit for people doing data analysis and a potential pitfall for people learning R. To illustrate a little how this is possible, consider a particularly useful function that was pointed out by a recent workshop participant. It’s the <em>skim()</em> function from the <code>skimr</code> package. This package is designed with respect to a whole system of doing data transformations in R called the tidyverse. But R is so modular, one can easily just grab this one package and use it without needing to buy into the whole thing. Before using the function, you will need to load the package. And if you hadn’t installed it yet, you would need to do so via the <em>packages</em> pane in R Studio (self-explanatory) or via code:
+<code>install.packages(&quot;skimr&quot;)</code></p>
+<p>Then, to load the package:
+<code>library(skimr)</code></p>
+<p>Once loaded, the <em>skim()</em> function is available to the R session. All of the output is shown below. To have yours look the same in the R Studio console pane, you will probably need to widen the console pane considerably by dragging with the mouse or the output will wrap. You can run and re-run until you get it right! When you do, you can once again select it all and paste it into a text editor for a perfectly proportioned table that includes the histograms (or see below for word processor instructions).</p>
+<p><code>skim(binge)</code></p>
+<p><img src="images/RStudio_SkimTop.png" />
+<img src="images/RStudio_skimBot.png" />
+<strong>Things to note</strong>.</p>
+<ol style="list-style-type: decimal">
+<li><em>skim()</em> seems to combine the information from both <em>str()</em> and <em>summary()</em> into a very useful format. Someone, a user, has programmed R using underlying functions to do that.</li>
+<li>Instead of either the statistics or histograms, <em>skim()</em> provides <em>both</em> and places a miniature histogram of each numeric (perfect for <em>skim</em>ming the data) on the same line as the descriptives.</li>
+<li>Again, the function neatly deals with Factors and numerics in our data frame.</li>
+<li>The output is very neat and looks like it could easily be converted into a PDF or other document. In fact, it looks like it was composed using tools from <em>markdown</em> (the mark up language in which this guide is written). This gives the neat tables and carefully justified tabs. Perusal of the <em>help()</em> entry for the function suggests it is indeed designed to work with tools like R Markdown and other functions that would take <em>skim()</em> output to create very elegant tables. In fact, <em>skim()</em> objects can be fed into other R functions from user packages that facilitate printing and saving very clean tables such as the one in this guide. Even without that knowledge (yet) you can cheat by selecting the <em>skim()</em> output, pasting into a word processor, selecting it all again and choosing a font such as Courier (or Lucida Sans Typewriter) that is non-proportional (fixed width). You will find that with font size of about 9 points and narrower margins, everything lines up beautifully. Even the histograms are created by ASCII block characters that work in text files. Try it!</li>
+</ol>
+<p>And just to bring the point home about how modular things are in R, consider the code snippet below. What do you think it will do? Run it and see if you were right.</p>
+<p><code>skim(subset(binge, select=belief1:belief20))</code></p>
+</div>
+</div>
+<div id="reading-files-with-r-by-using-the-here-package" class="section level2">
+<h2><span class="header-section-number">3.3</span> Reading files with R by using the <code>here</code> package</h2>
+<p>So far, I have had you address the data file <em>BDRVdataR.sav</em> with its full R Project path. It is in the <em>data</em> subdirectory that sits directly under the root project directory, so the full path <em>data/BDRVdataR.sav</em> works. But what if you wanted to change the directory structure and introduce an intermediate directory between the root and <em>data</em>? This would instantly break all the file path statements in code and for a large project this might be considerable. As well, getting these paths in the first place can be a trial. You almost certainly will not have noticed, but the paths in the R code snippets in this guide have used forward slashes “/”. Some filesystems use forward slashes in paths (e.g., linux ad all Unix derivatives) and some use backslashes “\” (e.g., Windows). For most of us, this is a tiny detail that is easy to forget. But R <em>always uses forward slashes</em>. If you were to copy a bunch of Windows-formatted file paths (e.g., <em>C:\Users\You\Documents\UniStuff\6020PSY\R_course</em>) and paste them into R code, they wouldn’t work and you’d have to search-and-replace all the back slashes with forward slashes. Clearly, this is not a good way to work and introduces many chances for error.</p>
+<p><strong>Enter the <code>here</code> package</strong>. This package takes care of paths for users. As long as you specify one (sometimes two) unambigous folders on the path that contains the target file, <code>here</code> will sort it out. An example will explain better than many paragraphs.</p>
+<p><code>binge &lt;- data.frame(read.spss(here(&quot;data&quot;, &quot;BDRVdataR.sav&quot;)))</code></p>
+<p>You should recognise this as being very similar to the same code snippet used above to finally read the BDRV data into an object called <em>binge</em>. Another function has been nested in it. That’s 3 nested functions and it is nothing out of the ordinary. It seems that the <em>here()</em> function takes as input some parts of the filename and <em>path</em> of the BDRV data and then passes this onto <em>read.spss()</em> which in turn passes its output onto <em>data.frame()</em> which finally assigns the output to the <em>binge</em> object. You may suspect this code has read the BDRV data from SPSS again in a different way and you would be correct.</p>
+<p><code>here(&quot;data&quot;, &quot;BDRVdataR.sav&quot;)</code> basically says, “in a path with a folder called <em>data</em> in it, there is a file called <em>BDRVdataR.sav</em>”. Note that both the filename and the folder are in double quotes, “like”, “this”? This is to make the parts of the path clear for <em>here()</em>. It seems silly to do this if the exact path is just <em>data/BDRVdataR.sav</em>. But what if in a month’s time you decided to restructure the project folder because it had grown too much and you put a folder called <em>base_files</em> off the root and then <em>data</em> off <em>base_files</em>? The correct path would then be <em>base_files/data/BDRVdataR.sav</em> and any code with the old, simple path would stop working and would need to be fixed. However, the <em>here()</em> version,</p>
+<p><code>binge &lt;- data.frame(read.spss(here(&quot;data&quot;, &quot;BDRVdataR.sav&quot;)))</code></p>
+<p>would keep working unmodified. The <em>here()</em> function is such an important function for locating files consistently (mostly data but plenty of other types as you go) that it is often written in a special way. And you should do this too:</p>
+<p><code>binge &lt;- data.frame(read.spss(here::here(&quot;data&quot;, &quot;BDRVdataR.sav&quot;)))</code></p>
+<p>Note that I have written <em>here::here</em>. What this means is that in the code above, R should specifically use the <em>here()</em> function from the <code>here</code> package <em>whether or not it is loaded</em>. If someone else were to have written another package that does something else entirely but happens to have a function called <em>here()</em> in it, and you were to have loaded that package without realising this, then if you just used <em>here()</em>, as above, R would use the wrong version of <em>here()</em> and that would break the code. Writing <em>here::here</em> is sort of like using both a first name and a surname to be clear who you mean. You are saying, “not just any <em>here()</em> function that may be in the workspace, but only the <em>here()</em> function from the <code>here</code> package!” You need to have <em>installed</em> the package into your installation (as above), but <em>here::here</em> will definitely work. It’s another modular thing. So, <code>package::function</code> will always work but it is a tiresome way to have to write all code like this so it is reserved for infrequent but important situations, or when quickly sketching out an example, as you will see below in this guide. This is one of those things that you <em>just do</em> and slowly the meaning will seep into your mind.</p>
+<p><em>Your new mantra</em>: <strong>When I use R, I set up an R Project, as shown above, and I put my data files in the <em>data</em> directory and I use a line like:
+<code>binge &lt;- data.frame(read.spss(here::here(&quot;data&quot;, &quot;BDRVdataR.sav&quot;)))</code>
+to read them.</strong></p>
+</div>
+<div id="reading-csv-files-and-turning-them-into-data-frame-objects" class="section level2">
+<h2><span class="header-section-number">3.4</span> Reading CSV files and turning them into data frame objects</h2>
+<p>The examples above worked with a data frame object that had been created from an SPSS file (you may recall that at the beginning of the session the code loaded the <code>foreign</code> package to allow the use of the <em>read.spss()</em> function). Often, data has not been set up as an SPSS file and is in a CSV (comma separated value) format file. Some examples:</p>
+<ul>
+<li>data from an external database, extracted and provided to you as a <em>flat file</em> spreadsheet which will almost certainly be a CSV file</li>
+<li>data that was gathered in a program like Redcap or Qualtrics that output CSV or similar files by default (in fact, even in the SPSS download option, Qualtrics gives you CSV data and a clunky SPSS syntax file to run it)</li>
+<li>you gathered the data yourself and have entered in a spreadsheet because you didn’t have convenient access to SPSS (it’s not free…) and you can save or export it as a CSV file</li>
+<li>many more reasons…</li>
+</ul>
+<p>Base R has a function called <em>read.csv()</em> and it is just what you need. Because you now understand how functions work, I can just list it below and most of it will be clear.</p>
+<p><code>binge2 &lt;- data.frame(read.csv(here::here(&quot;data&quot;, &quot;BDRVdataR.csv&quot;)))</code></p>
+<p>You can see that the only changes in the code are that:</p>
+<ol style="list-style-type: decimal">
+<li>the object name is <em>binge2</em> to differentiate it from the above;</li>
+<li>and <em>read.spss()</em> has become <em>read.csv()</em>.</li>
+</ol>
+<p>Again, the modular nature of R and the way that nested functions are used to perform all the steps of a more complex task means these are the only changes necessary. You could use the <em>binge2</em> object in exactly the same way as the <em>binge</em> object. As the data file is identical, the object will be identical except that there are no labels as there are in the SPSS version. The statistics will be exactly the same. You can check yourself easily by running a line of code such as:</p>
+<p><code>skim(subset(binge2, select=belief1:belief20))</code></p>
+</div>
+<div id="preparing-data-to-have-numerics-and-factors-as-appropriate-especially-when-working-with-spss-files" class="section level2">
+<h2><span class="header-section-number">3.5</span> Preparing data to have numerics and Factors as appropriate (especially when working with SPSS files)</h2>
+<p>It is clear from the above that being careful about variables that should be Factors or numerics, respectively, will go a long way to facilitating efficient work. <em>This is something to read over and keep in mind for setting up your own data</em>. I want you to be able to have access to this information but it is best that you get used to actually working with R first. The data I will provide for examples in this guide will be approporiately set up. There are two broad ways to go about this.</p>
+<ol style="list-style-type: decimal">
+<li><strong>if you start with a CSV file</strong> created in a spreadsheet program (e.g., Microsoft Excel; LibreOffice Calc; some Mac thing) <strong>enter numbers as numbers and words as words</strong>. When R reads the data, it will automatically leave numbers as numerics and it will turn words (i.e., string variables) into Factors. For example, a rating scale item answered on a 1 to 7 scale will obviously become a numeric in R. By contrast, a binary question that was answered “yes” or “no”, will become a Factor.</li>
+</ol>
+<ul>
+<li>If you are entering data, you can control what variables become Factors by making sure they have words as responses (always best to avoid spaces; DK vs “don’t know”). This is also true if you are gathering data online as this export option can be sorted out in programs like Redcap and Qualtrics.</li>
+<li><strong>One crucial change may be necessary to the way that you have learned to enter data</strong>. Where you have for years been told to assign numbers to all ordinal and nominal categorical variables and then enter those numbers into data that was destined for SPSS, you won’t do that now. For example, marital status might have been coded as 1 = married/de fact, 2 = divorced, 3 = separated… and so on. When preparing data for R, <em>don’t replace the categories with numbers</em>, leave them as words (without spaces). This is also true of dummy variables that already exist in the data (the ones you may create later can be dealt with then). For example, the BDRV data contained a question asking whether both of a person’s parents and all four of their grandparents were born in Australia (<em>bornaus</em>) and the responses were: <em>yes</em> and <em>no</em>. Instead of coding yes = 1 and no = 0, or something similar, you would enter that as <em>yes</em> or <em>no</em>. Because of the way that R deals with Factors, you will find that your stats with linear models become amazingly efficient. <em>You need to trust me on this one!</em></li>
+<li><strong>There may also be a situation where you find it is still useful to enter certain categorical variables with numerical codes</strong>. Don’t worry. There are, in fact, functions in base R that allow you to treat numerics as Factors (and other things too) if necessary. But you knew I was going to say that! It’s called <em>coercion</em> but I am trying to avoid making your head swim. For now, for simple psych data, focus on numeric items (usually interval and ratio scales that will be DVs) and categorical Factors (usually nominal or ordinal variables that will be IVs/Factors in ANOVAs and may also be deal with by chi square).</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>If you start with an SPSS file</strong>, you just need to ensure that anything you want to be a Factor variable is either
+<ul>
+<li>words; or</li>
+<li>has value labels.</li>
+</ul></li>
+</ol>
+<ul>
+<li><strong>Anything with value labels will be read as a Factor in R by default</strong>. Anything that contains only numbers and has no value labels remains numeric. But it is also possible to set a parameter in the <em>read.spss()</em> function to stop this!</li>
+<li>A trick here is to make sure that numeric variables such as scale items don’t still have value labels, even just the extremes such as <em>strongly agree</em> and <em>strongly disagree</em>. In the past, we all used to do this sometimes to help to label output for frequency tables and similar, but it is essentially pointless. In SPSS syntax, you can drop value lables easily and in one easy line. If you only use the menus, you’ve got a lot of clicking ahead of you…</li>
+<li>again, coercion is available</li>
+</ul>
+</div>
+<div id="end-of-module-1" class="section level2">
+<h2><span class="header-section-number">3.6</span> End of module</h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="module-2-basics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="module-4-regression-diagnostics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Module 4: Regression diagnostics | Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats</title>
+  <meta name="description" content="4 Module 4: Regression diagnostics | Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Module 4: Regression diagnostics | Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Module 4: Regression diagnostics | Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats" />
+  
+  
+  
+
+<meta name="author" content="Stefano Occhipinti" />
+
+
+<meta name="date" content="2020-04-26" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="module-3-addressing-files-reading-in-data-and-basic-statistics.html"/>
+<link rel="next" href="module-5-regression-and-glm-procedures.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Module 1: Prelude and Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#is-this-for-you"><i class="fa fa-check"></i><b>1.1</b> Is this for you?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#why-this-guide"><i class="fa fa-check"></i><b>1.2</b> Why this guide?</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#about-r"><i class="fa fa-check"></i><b>1.3</b> About R</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#brief-outline"><i class="fa fa-check"></i><b>1.4</b> Brief outline</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="module-2-basics.html"><a href="module-2-basics.html"><i class="fa fa-check"></i><b>2</b> Module 2: Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="module-2-basics.html"><a href="module-2-basics.html#tips-for-the-road-ahead"><i class="fa fa-check"></i><b>2.1</b> Tips for the road ahead</a></li>
+<li class="chapter" data-level="2.2" data-path="module-2-basics.html"><a href="module-2-basics.html#r-versus-spss-and-other-gp-stats-software"><i class="fa fa-check"></i><b>2.2</b> R versus SPSS and other GP stats software</a></li>
+<li class="chapter" data-level="2.3" data-path="module-2-basics.html"><a href="module-2-basics.html#r-is-entirely-code-based"><i class="fa fa-check"></i><b>2.3</b> R is entirely code-based</a></li>
+<li class="chapter" data-level="2.4" data-path="module-2-basics.html"><a href="module-2-basics.html#r-studio-an-app-for-efficiently-controlling-r"><i class="fa fa-check"></i><b>2.4</b> R Studio: An app for efficiently controlling R</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="module-2-basics.html"><a href="module-2-basics.html#customising-your-installation-of-r-studio-and-fixing-a-couple-of-problems-with-the-default-setup"><i class="fa fa-check"></i><b>2.4.1</b> Customising your installation of R Studio and fixing a couple of problems with the default setup</a></li>
+<li class="chapter" data-level="2.4.2" data-path="module-2-basics.html"><a href="module-2-basics.html#pesky-but-important-change-to-r-studio-default-pane-layout-that-will-be-set-and-forget"><i class="fa fa-check"></i><b>2.4.2</b> <strong>Pesky but important change to R Studio default pane layout that will be “set and forget”</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="module-2-basics.html"><a href="module-2-basics.html#r-project-files"><i class="fa fa-check"></i><b>2.5</b> R Project Files</a></li>
+<li class="chapter" data-level="2.6" data-path="module-2-basics.html"><a href="module-2-basics.html#preparing-the-r-project-directory"><i class="fa fa-check"></i><b>2.6</b> Preparing the R project directory</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="module-2-basics.html"><a href="module-2-basics.html#before-going-on-id-like-you-to-now-copy-the-course-files-into-the-r-project-directories."><i class="fa fa-check"></i><b>2.6.1</b> Before going on, I’d like you to now copy the course files into the R project directories.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="module-2-basics.html"><a href="module-2-basics.html#a-schema-for-how-r-works"><i class="fa fa-check"></i><b>2.7</b> A Schema for How R Works</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="module-2-basics.html"><a href="module-2-basics.html#r-has-a-lean-and-efficient-philosophy"><i class="fa fa-check"></i><b>2.7.1</b> R has a lean and efficient philosophy</a></li>
+<li class="chapter" data-level="2.7.2" data-path="module-2-basics.html"><a href="module-2-basics.html#things-you-will-only-do-once-each-time-you-re-install-r-on-a-computer"><i class="fa fa-check"></i><b>2.7.2</b> Things you will only do once each time you (re-)install R on a computer</a></li>
+<li class="chapter" data-level="2.7.3" data-path="module-2-basics.html"><a href="module-2-basics.html#things-you-will-only-need-to-do-once-in-any-new-r-session-on-any-type-of-computer"><i class="fa fa-check"></i><b>2.7.3</b> Things you will only need to do once in any new R session on any type of computer</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="module-2-basics.html"><a href="module-2-basics.html#objects-and-functions"><i class="fa fa-check"></i><b>2.8</b> OBJECTS and FUNCTIONS</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="module-2-basics.html"><a href="module-2-basics.html#the-last-important-r-concepts-before-looking-at-some-basic-code"><i class="fa fa-check"></i><b>2.8.1</b> The last important R concepts before looking at some basic code</a></li>
+<li class="chapter" data-level="2.8.2" data-path="module-2-basics.html"><a href="module-2-basics.html#clearing-objects-a-line-of-code-you-will-see-again-and-again"><i class="fa fa-check"></i><b>2.8.2</b> Clearing objects: a line of code you will see again and again</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="module-2-basics.html"><a href="module-2-basics.html#in-r-everything-we-do-is-a-function"><i class="fa fa-check"></i><b>2.9</b> In R, everything we do is a <em>function()</em></a><ul>
+<li class="chapter" data-level="2.9.1" data-path="module-2-basics.html"><a href="module-2-basics.html#there-are-exceptions-to-the-below-but-this-will-get-everyone-on-the-same-page-to-begin-with"><i class="fa fa-check"></i><b>2.9.1</b> There are exceptions to the below but this will get everyone on the same page to begin with</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="module-2-basics.html"><a href="module-2-basics.html#end-of-module"><i class="fa fa-check"></i><b>2.10</b> End of module</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><i class="fa fa-check"></i><b>3</b> Module 3: Addressing files, reading in data, and basic statistics</a><ul>
+<li class="chapter" data-level="3.1" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#reading-data-into-rusing-nesting"><i class="fa fa-check"></i><b>3.1</b> Reading data into R—using nesting!</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#first-clear-the-workspace-with-the-appropriate-code-at-the-top-of-the-file."><i class="fa fa-check"></i><b>3.1.1</b> First, clear the workspace with the appropriate code at the top of the file.</a></li>
+<li class="chapter" data-level="3.1.2" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#next-you-will-load-the-required-package."><i class="fa fa-check"></i><b>3.1.2</b> Next, you will load the required package.</a></li>
+<li class="chapter" data-level="3.1.3" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#now-you-will-try-to-read-in-the-data-and-you-will-see-how-nested-functions-and-objects-work-in-practice."><i class="fa fa-check"></i><b>3.1.3</b> Now, you will try to read in the data and you will see how nested functions and objects work in practice.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#describing-data-frames-and-variables"><i class="fa fa-check"></i><b>3.2</b> Describing data frames and variables</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#quickly-summarise-a-whole-data-frame-object"><i class="fa fa-check"></i><b>3.2.1</b> Quickly summarise a whole data frame object</a></li>
+<li class="chapter" data-level="3.2.2" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#summarising-variables-with-descriptive-statistics"><i class="fa fa-check"></i><b>3.2.2</b> Summarising variables with descriptive statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#reading-files-with-r-by-using-the-here-package"><i class="fa fa-check"></i><b>3.3</b> Reading files with R by using the <code>here</code> package</a></li>
+<li class="chapter" data-level="3.4" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#reading-csv-files-and-turning-them-into-data-frame-objects"><i class="fa fa-check"></i><b>3.4</b> Reading CSV files and turning them into data frame objects</a></li>
+<li class="chapter" data-level="3.5" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#preparing-data-to-have-numerics-and-factors-as-appropriate-especially-when-working-with-spss-files"><i class="fa fa-check"></i><b>3.5</b> Preparing data to have numerics and Factors as appropriate (especially when working with SPSS files)</a></li>
+<li class="chapter" data-level="3.6" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#end-of-module-1"><i class="fa fa-check"></i><b>3.6</b> End of module</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html"><i class="fa fa-check"></i><b>4</b> Module 4: Regression diagnostics</a><ul>
+<li class="chapter" data-level="4.1" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#ols-regression-in-r"><i class="fa fa-check"></i><b>4.1</b> OLS Regression in R</a></li>
+<li class="chapter" data-level="4.2" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#working-with-the-lm-object"><i class="fa fa-check"></i><b>4.2</b> Working with the <em>lm()</em> object</a></li>
+<li class="chapter" data-level="4.3" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#simple-diagnostics"><i class="fa fa-check"></i><b>4.3</b> Simple Diagnostics</a></li>
+<li class="chapter" data-level="4.4" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#running-regressions-dropping-influential-observations"><i class="fa fa-check"></i><b>4.4</b> Running regressions dropping influential observations</a></li>
+<li class="chapter" data-level="4.5" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#end-of-module-2"><i class="fa fa-check"></i><b>4.5</b> End of module</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html"><i class="fa fa-check"></i><b>5</b> Module 5: Regression and GLM procedures</a><ul>
+<li class="chapter" data-level="5.1" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#hierarchical-regression"><i class="fa fa-check"></i><b>5.1</b> Hierarchical regression</a></li>
+<li class="chapter" data-level="5.2" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#moderated-multiple-regression"><i class="fa fa-check"></i><b>5.2</b> Moderated multiple regression</a></li>
+<li class="chapter" data-level="5.3" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#mediation"><i class="fa fa-check"></i><b>5.3</b> Mediation</a></li>
+<li class="chapter" data-level="5.4" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#anova"><i class="fa fa-check"></i><b>5.4</b> ANOVA</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#issue-no.1"><i class="fa fa-check"></i><b>5.4.1</b> Issue no.1</a></li>
+<li class="chapter" data-level="5.4.2" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#issue-no.-2"><i class="fa fa-check"></i><b>5.4.2</b> Issue no. 2</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#end-of-module-3"><i class="fa fa-check"></i><b>5.5</b> End of module</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="module-4-regression-diagnostics" class="section level1">
+<h1><span class="header-section-number">4</span> Module 4: Regression diagnostics</h1>
+<p><strong>To begin, open the regressionDiagnostics.R file and run the first lines that clear the workspace and load packages</strong>. For future modules, I will not mention this but you should assume it. You now understand what <code>rm(list=ls())</code> and <code>library(foreign)</code> do.</p>
+<p>The easiest place to start with statistical analyses in R is with ordinary least squares (OLS) regression and the diagnostics associated. It is the most straightofrward implementation of the general linear model (GLM). In this module, I will look at:</p>
+<ul>
+<li>Creating an <em>lm()</em> object for regression
+<ul>
+<li>initial assessment of output</li>
+</ul></li>
+<li>Generating:
+<ul>
+<li>CIs</li>
+<li>ANOVA table</li>
+</ul></li>
+<li>Basic diagnostics
+<ul>
+<li>plots</li>
+<li>scatterplots</li>
+<li>residuals and residual plots</li>
+<li>leverage statistics and plots</li>
+<li>Checking for heteroscedasticity</li>
+<li>Q-Q plots of the residuals</li>
+<li>added-variable plots</li>
+<li>dropping observations</li>
+</ul></li>
+</ul>
+<p>I assume that you know what each of those things are. I will take a typical OLS regression and run it and generate quantities such as residuals and leverage and appropriate plots in a more or less classical tradition of influence and diagnostics. <strong>All</strong> of the tutorials you find on the web and in psych classes are reinterpretations of the classic papers of Bollen and Jackman (1985) and Stevens (1984), and probably also of Cook and Weisberg’s (1981) <em>Regression Diagnostics</em>, and the present guide is no different. Occhipinti and Tapp (2018; <em>Data preparation</em> chapter in Brough, P. [Ed.] <em>Advanced Research Methods for Applied Psychology: Design, Analysis and Reporting</em>; Routledge) provide a handy, chapter length treatment of this and of the principles of preparing data for analysis (shameless plug alert) but consider looking at Bollen’s and Stevens’ papers directly!</p>
+<div id="ols-regression-in-r" class="section level2">
+<h2><span class="header-section-number">4.1</span> OLS Regression in R</h2>
+<p>As you have seen already in Part 1, regression is easy. It makes use of the <em>lm()</em> function and a moment’s deduction shows that <em>lm</em> stands for <em>linear model</em>. It is always best to send the output of <em>lm()</em> to an object for examination via <em>summary()</em> or further processing, as I will show below.</p>
+<p>The following line of code is in the <em>linearModels.R</em> file and it is repeated below. Before it runs, make sure to read the data into an object called <em>binge</em>. Note that the <em>regint</em> object should be in your environment after you have run it. As we have assigned the function’s output to an object, you will only see the code itself echoed in the console.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">regint &lt;-<span class="st"> </span><span class="kw">lm</span>(intervention<span class="op">~</span>age <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>hospitality <span class="op">+</span><span class="st"> </span>conservative, <span class="dt">data=</span>binge)</a></code></pre></div>
+<p>To reiterate the prototypical form of regression via lm(), see the below:</p>
+<p><code>lm(DV ~ predictor + predictor … + predictor, data=data frame object)</code></p>
+<p>This is very easily modified to incorporate things such as product terms for moderation or curvilinear analysis. For example, note the tiny difference (covered later in more depth):</p>
+<p><code>lm(DV ~ predictor + predictor … + predictor*predictor, data=data frame object)</code></p>
+<p>To examine the output of the regression, the base R function is again <em>summary()</em>:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">summary</span>(regint)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = intervention ~ age + sex + hospitality + conservative, 
+##     data = binge)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.3854 -0.6485  0.0366  0.7241  2.7071 
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     2.44444    0.16079  15.202  &lt; 2e-16 ***
+## age             0.02695    0.00275   9.799  &lt; 2e-16 ***
+## sexfemale       0.24741    0.07617   3.248  0.00121 ** 
+## hospitalityyes -0.10715    0.11840  -0.905  0.36577    
+## conservative    0.45265    0.05564   8.135 1.64e-15 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.052 on 773 degrees of freedom
+## Multiple R-squared:  0.208,  Adjusted R-squared:  0.2039 
+## F-statistic: 50.76 on 4 and 773 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>For most uses, this will be fine as the point of checking generally is to ascertain the nature of the results before planning a next move. However, to illustrate the flexibility of R, consider that a textbook author and statistician called Julian Faraway decided that the information contained in the <em>summary()</em> output was a bit bloated and redundant when running many models and checking them as for a large analysis. He wrote his own version and called it <em>sumary()</em> [n.b., the single <em>m</em> is not a typo]. You don’t need to install the <code>faraway</code> package that goes with his text (it can be very useful), but the output of his function is below. Also note how I have called the function to avoid loading library just for this aside.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">faraway<span class="op">::</span><span class="kw">sumary</span>(regint)</a></code></pre></div>
+<pre><code>##                  Estimate Std. Error t value  Pr(&gt;|t|)
+## (Intercept)     2.4444368  0.1607920 15.2025 &lt; 2.2e-16
+## age             0.0269503  0.0027504  9.7987 &lt; 2.2e-16
+## sexfemale       0.2474107  0.0761662  3.2483  0.001211
+## hospitalityyes -0.1071476  0.1184006 -0.9050  0.365770
+## conservative    0.4526499  0.0556413  8.1351 1.638e-15
+## 
+## n = 778, p = 5, Residual SE = 1.05242, R-Squared = 0.21</code></pre>
+<p>It’s certainly neater and focuses on the b-weights (i.e., <em>Estimate</em> column) and their associated standard errors, t values and p values (<em>Pr(&gt;|t|)</em>, note exponential notation). However, it does not echo the code containing the function call, but depending on how you write and run your code, this may not matter.</p>
+</div>
+<div id="working-with-the-lm-object" class="section level2">
+<h2><span class="header-section-number">4.2</span> Working with the <em>lm()</em> object</h2>
+<p>Apart from the summary-type functions above, you may want more information anout specific aspects of the analysis. Remember, R deliberately does not spit out everything that could possibly be generated from a statistical procedure. Consider the below:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">confint</span>(regint)</a></code></pre></div>
+<pre><code>##                      2.5 %     97.5 %
+## (Intercept)     2.12879611 2.76007747
+## age             0.02155116 0.03234934
+## sexfemale       0.09789357 0.39692782
+## hospitalityyes -0.33957248 0.12527726
+## conservative    0.34342386 0.56187589</code></pre>
+<p>The <em>confint()</em> function gives 95% CIs by default. What if 99% CIs were required? The <em>level</em> parameter to the function can be explicitly specified to change that. Try: <code>confint(regint, level = .99)</code>.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">anova</span>(regint)</a></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: intervention
+##               Df Sum Sq Mean Sq  F value    Pr(&gt;F)    
+## age            1 136.78 136.777 123.4908 &lt; 2.2e-16 ***
+## sex            1  14.12  14.122  12.7503  0.000378 ***
+## hospitality    1   0.68   0.683   0.6163  0.432648    
+## conservative   1  73.30  73.301  66.1805 1.638e-15 ***
+## Residuals    773 856.16   1.108                       
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Take care when running the code below from R Studio. To see the plots, you need to click into the <em>console</em> pane of R Studio and push the <strong>Enter</strong> key once for each plot. The plots will pop up in the <em>Plots</em> pane below the <em>console</em>. Each can be zoomed into, exported as an image or as a PDF, or copied to the clipboard to paste into other programs such as Word, Powerpoint, or their open source equivalents. (Try it!)</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">plot</span>(regint)</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-18-1.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-18-2.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-18-3.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-18-4.png" width="672" /></p>
+<p>Note that these plots are the absolute basic, default level of graphics in R. It only gets better as you master other graphics functions. Also, note that in each case, you simply pass the <em>lm()</em> object <em>regint</em> into each new function and R does the necessary translation. An <em>lm()</em> object is of a special class in R but unless you are programming, you don’t need to do anything about it. This is by design. R is modular like this and it makes doing stats much clearer for many people. After learning some of these concepts, the stats software stays out of the way of your learning about statistics.</p>
+</div>
+<div id="simple-diagnostics" class="section level2">
+<h2><span class="header-section-number">4.3</span> Simple Diagnostics</h2>
+<p>It is often useful to plot the criterion (i.e., Y variable) against the predictors (i.e., X variables). A simple bivariate plot can be obtained with the <strong>same</strong> <em>plot()</em> function used above. Again, note the modularity. R realises that the input to <em>plot()</em> is not an <em>lm()</em> object but is a pair of continous variable, so it produces a scatterplot:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">plot</span>(binge<span class="op">$</span>intervention<span class="op">~</span>binge<span class="op">$</span>conservative)</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p>If instead <em>plot()</em> were fed a continuous Y variable and a discrete X variable:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">plot</span>(binge<span class="op">$</span>intervention<span class="op">~</span>binge<span class="op">$</span>sex)</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p>Further, if you wanted a few plots of variables from the BDRV data that is contained in the <em>binge</em> object and didn’t want to have to type <em>binge$</em> each time, you could use the same <em>data =</em> parameter as for the <em>lm()</em> function calls above:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">plot</span>(intervention<span class="op">~</span>conservative, <span class="dt">data =</span> binge)</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p>In multiple regression, it is often of interest to obtain a series of scatterplots of all the predictors with the criterion and most software facilitates this. This function is from the <code>car</code> package, that you loaded at the head of the <em>linearModels.R</em> file.</p>
+<pre><code>## Loading required package: carData</code></pre>
+<pre><code>## Registered S3 methods overwritten by &#39;car&#39;:
+##   method                          from
+##   influence.merMod                lme4
+##   cooks.distance.influence.merMod lme4
+##   dfbeta.influence.merMod         lme4
+##   dfbetas.influence.merMod        lme4</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">scatterplotMatrix</span>(<span class="op">~</span>intervention <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>hospitality <span class="op">+</span><span class="st"> </span>conservative, <span class="dt">data=</span>binge)</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p>This is an example of a user written function that improves the way many can do statistical analysis. the <code>car</code> package was written for the textbook <em>Companion to Applied Regression</em> by Fox and Weisberg that is itsel loosely based on <em>Applied Regression Analysis and Generalized Linear Models</em>, by Fox. The <code>car</code> package is very widely used and pops up as a dependency in many other packages.</p>
+<p>This type of figure has the (smoothed) distribution of each variable on the main diagonal and the first column (or row) has the scatterplot of the criterion variable with each predictor in turn, with fit lines and confidence bands. On the other offdiagonal elements are found the respective scatterplots of the predictors with each other. Note the distinctive pattern associated with predictors that are dummies. There is a great deal of worthwhile visual information in this figure.</p>
+<p>Moving along with the diagnostics, the first quantity of interest is almost always the residuals. As the residuals are expressed in the scale of the criterion variable, they are usually standardised in some way to facilitate comparison with standard population values. There are various ways to standardise and in 6020PSY we teach studentized residuals with a cutoff of +/-3.3 but this is somewhat arbitraty (some authorities suggest lower cutoffs or different types of standardisation; whatever you do, be consistent!). The following line extracts the studentized residuals and assign them to a new object called <em>stud.res</em> (note the aptly named function)</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">stud.res &lt;-<span class="st"> </span><span class="kw">rstudent</span>(regint)</a></code></pre></div>
+<p>Your new friend the <em>plot()</em> function is used to generate the plot of residuals to check that they are centred around zero and are approximately normal (note that the residuals are on the Y axis. Again, it correctly guesses the type of plot required given the input it has received. The <em>ylab</em> function labels the Y axis. More on the <em>ylim</em> parameter, that sets the minimum and maximum <em>lim</em>its of the Y axis, below.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">plot</span>(stud.res, <span class="dt">ylab=</span><span class="st">&quot;Studentized Residual&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">4</span>,<span class="dv">4</span>))</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p>In the code snippet above, the Y axis parameter <em>ylim</em> is set with the format <code>c(-4, 4)</code>. The <em>c()</em> function is actually the way that lists of elements are input to parameters and functions as required. The c stands for <em>c</em>ombine. It is an extremely frequently used function (probably the most used in R) and has a large role in and out of statistical analysis. Using <em>c()</em> with lists and with special operators to repeat values or patterns is easily worth a chapter in a manual and is well outside the scope of this regression module. For users, when you see <em>c()</em>, you know that a list or series of elements is to be input. In the code snippet above, <code>c(-4, 4)</code> is used to give the minimum and maximum points of the Y axis in the plot. Consider what <code>c(1,8)</code> would produce. Note also that the code above shows that functions can be nested flexibly and not only as whole functions as in previous examples. <code>c(-4, 4)</code> is used to provide input to a specific parameter of <em>plot()</em> and not as the whole input.</p>
+<p>A further modification is possible and it demonstrates how R can optimise analysis. In the above, -4 and +4 were chosen as Y axis limits as the residuals of interest in diagnostics are the extreme ones, defined here as larger than 3.3 in absolute value. Calling the <em>plot()</em> function without <em>ylim</em> makes a plot with a Y axis a tiny bit larger than the actual minimum and maximum values and using -4/+4 creates a meaningful, symmetric frame around them. However, in this and other occasion, the user might want a plot with Y axis limits that match the actual minimum and maximum values of the data. The below makes a plot with Y axis limits 1 point larger than the actual minimum and maximum in the data, in absolute value.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">plot</span>(stud.res, <span class="dt">ylab=</span><span class="st">&quot;Studentized Residual&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="kw">min</span>(stud.res)<span class="op">-</span><span class="dv">1</span>,<span class="kw">max</span>(stud.res)<span class="op">+</span><span class="dv">1</span>))</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p>The code shows how functions can be substituted for fixed values and even used in arithmetic almost everywhere in R. <code>min(stud.res)-1</code> uses the <em>min()</em> function on the quantity that is being plotted <em>stud.res</em> and says, take 1 away from whatever the actual minimum is. The same is true analogouslyt for the scale maximum. This code snippet can be copied and pasted anywhere a plot is required that needs to be limited by the data as long as the variable <em>stud.res</em> is subsituted by the new variable. And the general principles can be applied all over R.</p>
+<p>The important diagnostic information that is efficiently conveyed by this plot is that the positive residuals are all well within the bounds of acceptable values (in this case, they seem &lt; 3). By contrast, the negative residuals seem to stretch out to the nonacceptable region and it seems the regression model in this data makes a strong overestimate of the true scores for some observations (i.e., remembering that as True score = Predicted Score + Residual, then Residual = True Score - Predicted Score).</p>
+<p>However, rather than simply use a visual estimate, it is very easy in R to overlay a set of horizontal lines at milestone residual values, such as -3, 0, and +3. This is achieved with a special function called abline() that runs after plot() and overlays lines over the last plot that was called.</p>
+<p><code>abline(h =c(-3.3,0,3.3), lty = 2)</code></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p>This plot shows clearly that there is one point just on the -3.3 line and at least one point that is so close as to merit further assessment, depending on the remaining diagnostics.</p>
+<p>The <em>abline()</em> function has to be run after a call to a plotting function and if this is not done it will simply produce an error message. It is worth taking this line of code apart to learn the devices in it.</p>
+<ul>
+<li><code>h =</code> is asking for a horizontal line at Y = whatever number is given. A vertical line at X = whatever number is given would be called for with <code>v =</code></li>
+<li>I could have written a single number, <code>h = -3.3</code> to get a single line but I used <em>c()</em> to make a list and <em>abline()</em> is smart enough to know that if a list is sent, then multiple lines are called for.</li>
+<li><code>lty = 2</code> is a parameter set to the value for a dashed line (i.e., 2). If this parameter is left out, equivalent to adding in <code>lty = 1</code>, the default solid line is produced. A value of 3 makes a dotted line and further numbers produce variations. These are all given in the help() entries.</li>
+</ul>
+<p>You could try running the <em>plot()</em> + <em>abline()</em> pair a few different times with changed options to see the effect on the plot.</p>
+<p>Another useful device in making plots for diagnostics is to label the points with an ID or other identifying mark from the data so as to make it easier to identify any potentially influential points discovered. Some useful functions from base R and <code>car</code> may label discrepant points with R’s generated row numbers from the data frame so it is handy to know how to print out each of these where required. Below, the steps to create appropriate labelling variables and then to apply these logically to later plots and diagnostics will be stepped through sequentially. Each line is a necessary logical step that ordinarily runs in direct sequence with the others. I have inserted commentary between them for the sake of learning and explanation.</p>
+<p>The next step in diagnostic analysis is to locate potentially influential cases in the data by examining values of statistics such as leverage and Cook’s D. Software such as SPSS sutomatically lists 10 largest, 10 smallest and so on of a given statistic and sometimes this shotgun approach can cause its own confusion. <strong>In R you will learn to make your own lists and to only include the values that are needed, rather than the 10 “best values” like a Buzzfeed list</strong>. For example, you know already that positive residuals are unlikely to be a problem in the BDRV data.</p>
+<p>A common approach to this type of task is to make a new variable or object to hold the output of a procedure and then to list these using logical operators in R code. It is easiest to learn by doing these basic tasks.</p>
+<p>First, collect which, if any, data points have values outside a +/- 2.7 cut-off. I chose 2.7 as the cutoff here as I know that there is at least one point just smaller than 3.3 that needs to potentially be looked at. You could tweak this value by trial and error in your own data if necessary. The row numbers of the potentially discrepant values are assigned to the new object called <em>index</em> (again, the name is arbitrary).</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">index &lt;-<span class="st"> </span><span class="kw">which</span>(stud.res <span class="op">&gt;</span><span class="st"> </span><span class="fl">2.7</span> <span class="op">|</span><span class="st"> </span>stud.res <span class="op">&lt;</span><span class="st"> </span><span class="fl">-2.7</span>)</a></code></pre></div>
+<p>This code uses <em>which()</em>, a handy logical function in R that evaluates the logical truth (or falsity) of the condition in the parentheses. Only for observations where the condition is true, <em>which()</em> outputs the row name R lists in the data frame for that observation (i.e., when the condition is false, nothing happens for that observation). For the current example, <code>stud.res &gt; 2.7 | stud.res &lt; -2.7</code> means, “either the value of <em>stud.res</em> is greater than 2.7 or the value is less -2.7”. As a logical condition, this is only true for observations with residuals outside +/- 2.7. After <em>which()</em> has run, there will be an object called <em>index</em> in the workspace and it will only contain 7 values (223, 265, 538, 657, 693, 740, 777) which are the cases with potentially extreme residuals. Check the <em>Environment</em> pane and also note how the objects are starting to build up!</p>
+<p>I can take advantage of the logical status of <em>index</em> that <em>only</em> contains row number values for discrepant observations in the residuals by feeding it into the input of another function, called <em>text()</em>, whose job is to attach labels to points in plots.</p>
+<p><code>text(index-30, stud.res[index] , labels = binge$ID[index])</code>
+<img src="_main_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<ul>
+<li><code>index-30</code> = x co-ordinate of the labels; place the labels 30 pts to the left of the data point (i.e., arrived at by trial and error; a value between 20-40 always works; set and forget)</li>
+<li><code>stud.res[index]</code> = y co-ordinate of the labels; this is slightly trickier; means “label the <em>stud.res</em> values according to the row numbers in <em>index</em>”; the trick is that <em>index</em> only exists for the discrepant observations so only they get a label</li>
+<li><code>labels = binge$ID[index]</code>; use the variable <em>ID</em> in the data frame <em>binge</em> and match it with the row name from <em>index.</em> Again, <em>index</em> only exists for the discrepant observations so only they get a label</li>
+</ul>
+<p><strong>This may seem complex but it has already been written and tested!</strong> All you need to do in future is paste this code and make sure the variable and data frames match the new data you have. In the meantime, as you gain experience in R you will be able to understand the logic more clearly and will be able to build on this to do other tasks.</p>
+<p>The remaining step is to print out both the R row numbers and the actual ID numbers with the following <em>print()</em> call:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">print</span>(<span class="kw">c</span>(index, binge<span class="op">$</span>ID[index]))</a></code></pre></div>
+<pre><code>## 223 265 538 657 693 740 777                             
+## 223 265 538 657 693 740 777  95 511 299 320 389  13 358</code></pre>
+<p>The first set of numbers (don’t worry that there are two of them, there’s a reason that isn’t important!) are the <strong>row numbers</strong> and the second set are the <strong>ID variable values</strong> for the discrepant observations. These are the values to look for in the next part.</p>
+<p>Next, a common approach it to assess influence directly as a function of both distance (residuals)and leverage (hat). The <code>car</code> package has a very useful function called <em>influencePlot()</em>. This creates the classic residual X leverage plot. If you are used to the SPSS version of this plot, the <code>car</code> version will seem on its side. The values with simultaneously high leverage and extreme residuals (as defined by Fox and Weisberg) are in the top and bottom right hand zones of the plot. The function makes use of dynamically generated dotted lines to mark out the quadrants of influence. As well, the plot markers are circles whose area is proportional
+to the value of Cook’s D; a larger circle = more extreme. Very handily, the output of this function also contains a print out of the observations with the largest residuals and lists the corresponding values of leverage (hat) and Cook’s D.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">influencePlot</span>(regint)</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<pre><code>##        StudRes         Hat       CookD
+## 329 -0.6901894 0.026502865 0.002595488
+## 657 -3.1685132 0.004750005 0.009472262
+## 777 -3.2760989 0.023745130 0.051560996
+## 778 -2.6140906 0.047640429 0.067854846</code></pre>
+<p>This diagnostic suggests it is important to examine the observation with row number 778, as well as 329, 657, and 777, the latter three of which were flagged in the residuals analysis.</p>
+<p>To check what ID number belongs to that case, the <em>print()</em> function is used again. Evidently, case 212 in the BDRV data can be added to the discrepant observations obtained from residuals analysis.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">print</span>(binge<span class="op">$</span>ID[<span class="dv">778</span>])</a></code></pre></div>
+<pre><code>## [1] 212</code></pre>
+<p><strong>Checking for heteroscedasticity with a residual vs. fitted value plot</strong>. The function that is used is still <em>plot()</em>. The regression object generated above (i.e., <em>regint</em>) already contains the values that are needed. All that remains is to specify the input parameters. As an <em>lm()</em> object, <em>regint</em> has a known structure. You wouldn’t normally bother to check, because every <em>lm()</em> object would look the same as that is the point of objects. I have listed it below with the <em>ls()</em> function.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">ls</span>(regint)</a></code></pre></div>
+<pre><code>##  [1] &quot;assign&quot;        &quot;call&quot;          &quot;coefficients&quot;  &quot;contrasts&quot;    
+##  [5] &quot;df.residual&quot;   &quot;effects&quot;       &quot;fitted.values&quot; &quot;model&quot;        
+##  [9] &quot;qr&quot;            &quot;rank&quot;          &quot;residuals&quot;     &quot;terms&quot;        
+## [13] &quot;xlevels&quot;</code></pre>
+<p>The two quantities needed for the heteroscedascticity plot are the residuals and the predicted scores. The plot() code is below. Note that the same approach (<strong>$</strong>) is used to specify subparts of an <em>lm()</em> object as is for a data frame object</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw">plot</span>(regint<span class="op">$</span>resid <span class="op">~</span><span class="st"> </span>regint<span class="op">$</span>fitted.values)</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p>The usual interpretation of this plot (healthy rectangle or fearsome fan?) is made. As well, using the now familiar abline() function it is possible to add a horizontal line at Y = 0 to aid visual judgement (i.e., also helps in visual judgement whether the residuals are approximately centred around zero?)</p>
+<p><code>abline(h = 0, lty = 2)</code><br />
+<img src="_main_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<p><strong>Making a Q-Q plot of the residuals to further assess normality</strong>. The <code>car</code> package provides a nicer and more useful Quantile-Comparison (Q-Q) plot than the base R versions (and base R takes two function calls to make something similar). The standard interpretation of these is that they show the studentized residuals plotted against the appropriate t-distribution (all this is modifiable) and if the residuals are distributed appropriately, they will sit on or very close to the main diagonal line. Any such deviations indicate nonnormality.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">qqPlot</span>(regint)</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<pre><code>## [1] 657 777</code></pre>
+<p>The residuals pull away from the line at each end, characteristic of thick tailed distributions. <em>qqPlot()</em> also includes bootstrapped 95% CIs and it is of interest as to whether the points exceed this band. The output suggests that some do, around the t = -2.5 to -2.2 zone. However, the most extreme studentized residuals (row numbers = 657, 777) do not do so.</p>
+<p><strong>Added-variable plots, aka partial-regression plots</strong> are based on the association of a predictor with the criterion with all other predictors controlled for. Essentially, they are plots of the predictor and the criterion, residualised for all other predictors. The fit line has the same slope as for the standard regression. The really useful aspect of these plots (since the early references on diagnostics) is that they help to ascertain the observations that singly or in groups may be influencing the regression lines. In a similar way to the visual assessment of bivariate outliers, added-variable plots can emphasise the observations that sit in a position contrary to the trend described by the regression line. The <em>avPlots()</em> function from <code>car</code> presents the needed plots and include the regression lines.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">avPlots</span>(regint)</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<p>For example, the AV plot for <em>age</em> clearly suggests that observations with row numbers 777 and 778 (i.e., ID = 357 and 212, respectively) may be dragging the positive slope of the regression line down. Given that these observations have figured above in other examinations of diagnostics, it is worth checking the model with and without them included in the data. The remaining plots suggest few issues with the other observations flagged earlier, especially row number 657.</p>
+<p>Some researchers find AV plots so useful in assessing discrepant cases in regressions (n.b., this is not just for linear regression) that it can be handy to check out a few potential models even before running the whole regression. A quick way to do this in R would be:</p>
+<p><code>car::avPlots(lm(intervention~age + sex + hospitality + conservative, data=binge))</code></p>
+<p>With a large number of potential variables and models, a few checks like this would be time savers.</p>
+</div>
+<div id="running-regressions-dropping-influential-observations" class="section level2">
+<h2><span class="header-section-number">4.4</span> Running regressions dropping influential observations</h2>
+<p>If the original regression has been run already, as above, the model can be updated easily with the <em>update()</em> function (from base R) and this facilitates keeping track of the original model vs models derived without one or more influential observation and can ultimately guide changes to the data frame that will be incorporated for all future analyses. It is easiest now to demonstrate and then explain.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">regint.no777 &lt;-<span class="st"> </span><span class="kw">update</span>(regint, <span class="dt">subset=</span> <span class="op">-</span><span class="kw">c</span>(<span class="dv">777</span>))</a></code></pre></div>
+<ul>
+<li>remove observation with row number 777 and re-run the regression, putting it into an aptly named new object (i.e., regint.no777)</li>
+<li>note the use of <em>subset()</em> again to specify which row(s) to drop;
+<ul>
+<li>note <code>-c</code>; the minus before the c tells <em>subset()</em> to keep all <strong>but</strong> row 777.</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">summary</span>(regint.no777)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = intervention ~ age + sex + hospitality + conservative, 
+##     data = binge, subset = -c(777))
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.3379 -0.6541  0.0428  0.7282  2.7023 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     2.415669   0.160030  15.095  &lt; 2e-16 ***
+## age             0.028247   0.002762  10.228  &lt; 2e-16 ***
+## sexfemale       0.238829   0.075736   3.153  0.00168 ** 
+## hospitalityyes -0.102198   0.117672  -0.869  0.38539    
+## conservative    0.451477   0.055295   8.165 1.31e-15 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.046 on 772 degrees of freedom
+## Multiple R-squared:  0.2163, Adjusted R-squared:  0.2122 
+## F-statistic: 53.27 on 4 and 772 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">influencePlot</span>(regint.no777)</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<pre><code>##        StudRes         Hat       CookD
+## 329 -0.6867289 0.026508375 0.002570093
+## 538 -2.8964020 0.012724309 0.021419354
+## 657 -3.2185725 0.004829036 0.009933124
+## 778 -2.7470743 0.048778274 0.076744676</code></pre>
+<ul>
+<li>check the results as usual.</li>
+<li>note that 777 is now gone, but 778 still potentially a problem</li>
+</ul>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">regint.noinf &lt;-<span class="st"> </span><span class="kw">update</span>(regint, <span class="dt">subset=</span> <span class="op">-</span><span class="kw">c</span>(<span class="dv">777</span>, <span class="dv">778</span>))</a></code></pre></div>
+<ul>
+<li>can drop more than one case but must drop <em>all cases together</em>, not piecemeal
+<ul>
+<li>it’s very simple: just keep adding row numbers to the <em>c(…, …)</em></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">binge.clean &lt;-<span class="st"> </span>binge[<span class="op">-</span><span class="kw">c</span>(<span class="dv">777</span>,<span class="dv">778</span>),]</a></code></pre></div>
+<ul>
+<li>assign every row in binge except 777 and 778 to a new data frame object, <em>binge.clean</em></li>
+<li>by doing so, you will have produced a dataset without influential cases without having to change the original data</li>
+<li>can incorporate into the original read or just include both lines at the top of new code files for analysis with this data.</li>
+</ul>
+<p><code>regint.clean &lt;- lm(intervention~age + sex + hospitality + conservative, data=binge.clean)</code></p>
+</div>
+<div id="end-of-module-2" class="section level2">
+<h2><span class="header-section-number">4.5</span> End of module</h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="module-5-regression-and-glm-procedures.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

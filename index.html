@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats</title>
+  <meta name="description" content="Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats" />
+  
+  
+  
+
+<meta name="author" content="Stefano Occhipinti" />
+
+
+<meta name="date" content="2020-04-26" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="module-2-basics.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Module 1: Prelude and Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#is-this-for-you"><i class="fa fa-check"></i><b>1.1</b> Is this for you?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#why-this-guide"><i class="fa fa-check"></i><b>1.2</b> Why this guide?</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#about-r"><i class="fa fa-check"></i><b>1.3</b> About R</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#brief-outline"><i class="fa fa-check"></i><b>1.4</b> Brief outline</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="module-2-basics.html"><a href="module-2-basics.html"><i class="fa fa-check"></i><b>2</b> Module 2: Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="module-2-basics.html"><a href="module-2-basics.html#tips-for-the-road-ahead"><i class="fa fa-check"></i><b>2.1</b> Tips for the road ahead</a></li>
+<li class="chapter" data-level="2.2" data-path="module-2-basics.html"><a href="module-2-basics.html#r-versus-spss-and-other-gp-stats-software"><i class="fa fa-check"></i><b>2.2</b> R versus SPSS and other GP stats software</a></li>
+<li class="chapter" data-level="2.3" data-path="module-2-basics.html"><a href="module-2-basics.html#r-is-entirely-code-based"><i class="fa fa-check"></i><b>2.3</b> R is entirely code-based</a></li>
+<li class="chapter" data-level="2.4" data-path="module-2-basics.html"><a href="module-2-basics.html#r-studio-an-app-for-efficiently-controlling-r"><i class="fa fa-check"></i><b>2.4</b> R Studio: An app for efficiently controlling R</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="module-2-basics.html"><a href="module-2-basics.html#customising-your-installation-of-r-studio-and-fixing-a-couple-of-problems-with-the-default-setup"><i class="fa fa-check"></i><b>2.4.1</b> Customising your installation of R Studio and fixing a couple of problems with the default setup</a></li>
+<li class="chapter" data-level="2.4.2" data-path="module-2-basics.html"><a href="module-2-basics.html#pesky-but-important-change-to-r-studio-default-pane-layout-that-will-be-set-and-forget"><i class="fa fa-check"></i><b>2.4.2</b> <strong>Pesky but important change to R Studio default pane layout that will be “set and forget”</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="module-2-basics.html"><a href="module-2-basics.html#r-project-files"><i class="fa fa-check"></i><b>2.5</b> R Project Files</a></li>
+<li class="chapter" data-level="2.6" data-path="module-2-basics.html"><a href="module-2-basics.html#preparing-the-r-project-directory"><i class="fa fa-check"></i><b>2.6</b> Preparing the R project directory</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="module-2-basics.html"><a href="module-2-basics.html#before-going-on-id-like-you-to-now-copy-the-course-files-into-the-r-project-directories."><i class="fa fa-check"></i><b>2.6.1</b> Before going on, I’d like you to now copy the course files into the R project directories.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="module-2-basics.html"><a href="module-2-basics.html#a-schema-for-how-r-works"><i class="fa fa-check"></i><b>2.7</b> A Schema for How R Works</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="module-2-basics.html"><a href="module-2-basics.html#r-has-a-lean-and-efficient-philosophy"><i class="fa fa-check"></i><b>2.7.1</b> R has a lean and efficient philosophy</a></li>
+<li class="chapter" data-level="2.7.2" data-path="module-2-basics.html"><a href="module-2-basics.html#things-you-will-only-do-once-each-time-you-re-install-r-on-a-computer"><i class="fa fa-check"></i><b>2.7.2</b> Things you will only do once each time you (re-)install R on a computer</a></li>
+<li class="chapter" data-level="2.7.3" data-path="module-2-basics.html"><a href="module-2-basics.html#things-you-will-only-need-to-do-once-in-any-new-r-session-on-any-type-of-computer"><i class="fa fa-check"></i><b>2.7.3</b> Things you will only need to do once in any new R session on any type of computer</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="module-2-basics.html"><a href="module-2-basics.html#objects-and-functions"><i class="fa fa-check"></i><b>2.8</b> OBJECTS and FUNCTIONS</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="module-2-basics.html"><a href="module-2-basics.html#the-last-important-r-concepts-before-looking-at-some-basic-code"><i class="fa fa-check"></i><b>2.8.1</b> The last important R concepts before looking at some basic code</a></li>
+<li class="chapter" data-level="2.8.2" data-path="module-2-basics.html"><a href="module-2-basics.html#clearing-objects-a-line-of-code-you-will-see-again-and-again"><i class="fa fa-check"></i><b>2.8.2</b> Clearing objects: a line of code you will see again and again</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="module-2-basics.html"><a href="module-2-basics.html#in-r-everything-we-do-is-a-function"><i class="fa fa-check"></i><b>2.9</b> In R, everything we do is a <em>function()</em></a><ul>
+<li class="chapter" data-level="2.9.1" data-path="module-2-basics.html"><a href="module-2-basics.html#there-are-exceptions-to-the-below-but-this-will-get-everyone-on-the-same-page-to-begin-with"><i class="fa fa-check"></i><b>2.9.1</b> There are exceptions to the below but this will get everyone on the same page to begin with</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="module-2-basics.html"><a href="module-2-basics.html#end-of-module"><i class="fa fa-check"></i><b>2.10</b> End of module</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><i class="fa fa-check"></i><b>3</b> Module 3: Addressing files, reading in data, and basic statistics</a><ul>
+<li class="chapter" data-level="3.1" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#reading-data-into-rusing-nesting"><i class="fa fa-check"></i><b>3.1</b> Reading data into R—using nesting!</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#first-clear-the-workspace-with-the-appropriate-code-at-the-top-of-the-file."><i class="fa fa-check"></i><b>3.1.1</b> First, clear the workspace with the appropriate code at the top of the file.</a></li>
+<li class="chapter" data-level="3.1.2" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#next-you-will-load-the-required-package."><i class="fa fa-check"></i><b>3.1.2</b> Next, you will load the required package.</a></li>
+<li class="chapter" data-level="3.1.3" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#now-you-will-try-to-read-in-the-data-and-you-will-see-how-nested-functions-and-objects-work-in-practice."><i class="fa fa-check"></i><b>3.1.3</b> Now, you will try to read in the data and you will see how nested functions and objects work in practice.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#describing-data-frames-and-variables"><i class="fa fa-check"></i><b>3.2</b> Describing data frames and variables</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#quickly-summarise-a-whole-data-frame-object"><i class="fa fa-check"></i><b>3.2.1</b> Quickly summarise a whole data frame object</a></li>
+<li class="chapter" data-level="3.2.2" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#summarising-variables-with-descriptive-statistics"><i class="fa fa-check"></i><b>3.2.2</b> Summarising variables with descriptive statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#reading-files-with-r-by-using-the-here-package"><i class="fa fa-check"></i><b>3.3</b> Reading files with R by using the <code>here</code> package</a></li>
+<li class="chapter" data-level="3.4" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#reading-csv-files-and-turning-them-into-data-frame-objects"><i class="fa fa-check"></i><b>3.4</b> Reading CSV files and turning them into data frame objects</a></li>
+<li class="chapter" data-level="3.5" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#preparing-data-to-have-numerics-and-factors-as-appropriate-especially-when-working-with-spss-files"><i class="fa fa-check"></i><b>3.5</b> Preparing data to have numerics and Factors as appropriate (especially when working with SPSS files)</a></li>
+<li class="chapter" data-level="3.6" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#end-of-module-1"><i class="fa fa-check"></i><b>3.6</b> End of module</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html"><i class="fa fa-check"></i><b>4</b> Module 4: Regression diagnostics</a><ul>
+<li class="chapter" data-level="4.1" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#ols-regression-in-r"><i class="fa fa-check"></i><b>4.1</b> OLS Regression in R</a></li>
+<li class="chapter" data-level="4.2" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#working-with-the-lm-object"><i class="fa fa-check"></i><b>4.2</b> Working with the <em>lm()</em> object</a></li>
+<li class="chapter" data-level="4.3" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#simple-diagnostics"><i class="fa fa-check"></i><b>4.3</b> Simple Diagnostics</a></li>
+<li class="chapter" data-level="4.4" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#running-regressions-dropping-influential-observations"><i class="fa fa-check"></i><b>4.4</b> Running regressions dropping influential observations</a></li>
+<li class="chapter" data-level="4.5" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#end-of-module-2"><i class="fa fa-check"></i><b>4.5</b> End of module</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html"><i class="fa fa-check"></i><b>5</b> Module 5: Regression and GLM procedures</a><ul>
+<li class="chapter" data-level="5.1" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#hierarchical-regression"><i class="fa fa-check"></i><b>5.1</b> Hierarchical regression</a></li>
+<li class="chapter" data-level="5.2" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#moderated-multiple-regression"><i class="fa fa-check"></i><b>5.2</b> Moderated multiple regression</a></li>
+<li class="chapter" data-level="5.3" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#mediation"><i class="fa fa-check"></i><b>5.3</b> Mediation</a></li>
+<li class="chapter" data-level="5.4" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#anova"><i class="fa fa-check"></i><b>5.4</b> ANOVA</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#issue-no.1"><i class="fa fa-check"></i><b>5.4.1</b> Issue no.1</a></li>
+<li class="chapter" data-level="5.4.2" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#issue-no.-2"><i class="fa fa-check"></i><b>5.4.2</b> Issue no. 2</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#end-of-module-3"><i class="fa fa-check"></i><b>5.5</b> End of module</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats</h1>
+<p class="author"><em>Stefano Occhipinti</em></p>
+<p class="date"><em>2020-04-26</em></p>
+</div>
+<div id="module-1-prelude-and-introduction" class="section level1">
+<h1><span class="header-section-number">1</span> Module 1: Prelude and Introduction</h1>
+<div id="is-this-for-you" class="section level2">
+<h2><span class="header-section-number">1.1</span> Is this for you?</h2>
+<p><strong>R is an amazingly powerful, open-source statistical computing environment, <em>that also can be used for data analysis</em></strong>. You have probably at least heard about R. Today, knowing R is also a very well-regarded professional skill. Possessing demonstrated skills in working with R (usually but not always in <em>R Studio</em>) is a very strong addition to your CV, especially coming from a social/behavioral sciences background. People who have done a psychology or related degree, especially to honours level, are expected to know quite a bit about applied statistics and methodology. There are numerous cases of psychology graduates getting a foothold into an organisation (e.g., a government department, a not-for-profit, or a private consultancy) by landing a research-oriented, entry level job. I can tell you that if anyone asks me - an academic who teaches statistics in psychology - about recent graduates, they now almost <em>always</em> want to know if they have R skills (also, in public health it’s good to develop some Stata skills). SPSS skills don’t really differentiate people anymore. R is not that hard to learn. You don’t have to become a programmer.</p>
+</div>
+<div id="why-this-guide" class="section level2">
+<h2><span class="header-section-number">1.2</span> Why this guide?</h2>
+<p><strong>There are many, many R tutorials and video courses (e.g., Datacamp, plain YouTube) out there</strong>. Many are free. Some are quite good. If you already have a background in programming or computing generally, you will probably get a lot out of such materials but you probably are not even reading this guide. You’re very welcome, but it’s not intended for you. Matt Stainer and I (and originally also Caley Tapp) decided to set up workshops leading to the present guide because nothing really met the requirements of psych students and researchers like the anticipated typical users of this guide.</p>
+<ul>
+<li>Most courses spend a great deal of time on the programming basics and it can take a long time, possibly by which the initially keen learner has given up, to get to the productive statistics.
+<ul>
+<li>N.b., I learned R a lot like this from what <em>could</em> be seen as a very dry book with Notepad on Windows and I enjoyed it! But I don’t expect <em>you</em> to. And I’m no programmer!</li>
+</ul></li>
+<li>Much of the time, free courses begin by generating random variables within R itself and running very simple descriptives and increasingly pretty plots on them and this is of almost zero utility for someone who needs to analyse a <em>real</em> dataset that they already have, usually in Excel form or in another stats package form (and who has plenty of experience with data already).
+<ul>
+<li>I suspect the current popularity of data science as latest world saviour has attracted many non-statistical data visualisers for whom this approach might be beneficial.</li>
+</ul></li>
+<li>Few courses spend much time addressing the practicalities of dealing with different variable types in data frames and that is a pressing skill that you need to have <em>before</em> you can do the analyses you need. It’s astonishingly easy to read an SPSS file using the <code>foreign</code> package but what you get at the other end <em>can</em> be confusing and frustrating if you don’t know a few basic principles.
+<ul>
+<li>You already have a strong schema for what datasets look like. You don’t need baby data so you can discover a frequency polygon.</li>
+<li>E.g., the public domain passenger manifest of the Titanic, the actual ship from 1912, is given a furious beating in many of these.</li>
+</ul></li>
+<li>In sum, most courses are not geared for people like you who already know much more advanced statistics than the general population but need to know enough R to work productively and efficiently. As a consequence, the balance between R programming per se and practical, applied statistics is out of whack.
+<ul>
+<li>How many more times do we need to learn that men on the lower decks of the Titanic were most likely to drown!?</li>
+</ul></li>
+</ul>
+<p><strong>Assumptions of this guide</strong>. I assume that you know or are learning:</p>
+<ul>
+<li>descriptive statistics and basic inferentials such as a t-test</li>
+<li>ordinary and hierarchical multiple regression</li>
+<li>ANOVA models (oneway, factorial, repeated measures, mixed between-within Ss (therefore, basic GLM analyses)</li>
+<li>ideally, you will have done some SPSS syntax coding (such as in 3003PSY) so you understand that data analysts use code to give instructions to stats software so that the desired analyses will be performed on the variables</li>
+<li>N.b., if you can do SPSS syntax as I use in 6020PSY at MG, you can definitely do R and even if you haven’t done SPSS to that level, you will still find R code very logical and clear once I go through the basics</li>
+</ul>
+<p>The points I will come back to repeatedly across modules in this guide (they are like themes) are:</p>
+<ol style="list-style-type: decimal">
+<li>It’s actually very easy to do most statistics that you already know in R</li>
+<li>The part that is a little taxing <em>at first</em> is how to do the ancillary but necessary tasks, such as reading in the data, addressing variables in datasets, or putting functions together to tailor analyses to your requirements. For some, this may result in the early parts of learning R feeling like they drag on a bit.</li>
+<li>However…</li>
+</ol>
+<ol style="list-style-type: lower-roman">
+<li>you don’t need to learn <em>everything</em> (or even most things) about programming R to get going with it;</li>
+<li>the new concepts you learn (e.g., nested functions) might take a while at first if you have never thought like that but then you’ll see that you will be applying them to almost all of your later work and that <em>saves</em> time</li>
+<li>R is very modular and once you have learned a thing you can plug it in almost anywhere without having to re-invent the wheel</li>
+</ol>
+<p><strong>On this note, the modules in this guide show ways to do a set of standard tasks fairly typical of a 3rd or 4th year psychology context, using <em>base R</em></strong>. This generalises to quite a lot of data analyis and will certainly give you a strong edge over many other people who might lack your statistics and methodology training. There are many different ways to do what we cover here. I don’t even touch on the <em>tidyverse</em> that is currently very popular (although there will be a <em>ggplot()</em> module from Matt Stainer). <em>I’m showing you some skills in base R so that you can understand R things and concepts</em>. In future, you will be able to understand and implement new R tips and great new packages and functions that you’ll see around so much more quickly.</p>
+</div>
+<div id="about-r" class="section level2">
+<h2><span class="header-section-number">1.3</span> About R</h2>
+<p><strong>R is open source and free</strong>. Open source software is that for which the source code is freely available to and modifiable by others for their particular requirements. This is regarded as a benefit because it helps the software to grow in capabilities and helps errors to be checked and addressed by a sort of crowd sourcing. The other meaning of <em>free</em> in this sense is free of dollar cost (to coin a phrase often used online about R: <em>free, as in free beer</em>). It has helped R grow its user base exponentially as many smaller companies and start ups have adopted it because their only costs are in expertise, not necessarily prohibitive software licensing. The software’s increasing power has also meant that many companies and institutions of all sizes have adopted R. R is available for all the major operating systems (i.e., Unix/Linux, Windows, MacOS) and looks essentially the same on all of them.</p>
+<p><strong>People use R extensively in statistical programming</strong>. Some of the many things they may use R for are:</p>
+<ul>
+<li>to <em>simulate data</em>. Statisticians often need to simulate data with specific characteristics (e.g., normally distributed; skewed; or with very low or very high proportions of measurement error etc) to demonstrate statistical points. This is very easy to do in R.</li>
+<li>to <em>run Monte Carlo studies</em>. In connection with simulation, Monte Carlo studies examine how statistics work with known distributions or in known conditions. (E.g., David MacKinnon and colleagues reported on a Monte Carlo study that suggested that bootstrapping approaches had optimal statistical characteristics in assessing mediation and later that work was taken up by Preacher and Hayes.)</li>
+<li>to do <em>bootstrapping</em> per se. As discussed above, bootstrapping is increasingly used in everyday statistical analyses such as mediation. But that is a tiny part of its usage and R allows extensive bootstrapping of many models.</li>
+<li>to <em>build new apps</em> on top of R. You may have heard of <em>jamovi</em> and <em>JASP</em>. These are menu-based stats apps that use R as the “engine” to run the actual analyses. I won’t be covering these here as they have their own help and instructional materials. As useful as those programs are, it is much more important at your level to gain an understanding of base R and, frankly, it’s not that much harder for honours students!</li>
+</ul>
+<p><strong>But some people, maybe like you, just want to read in some data and run statistical analyses like multiple regression using R</strong>. And <strong>that’s</strong> where this guide comes in. I won’t be covering programming in depth here - I couldn’t begin to do that justice. I merely want to give you enough of the relevant concepts to get you rolling with actually doing the stats in R. R’s great control comes at a cost of needing to be <em>more specific and detail-oriented than with other general purpose (GP) statistical software such as SPSS or SAS</em>. In this guide, I will try to impart the few specific R skills that will allow you to manipulate data and files just enough to run and report on analyses efficiently. I am not presenting a dumbed down version of R. There are plenty of learning materials about that may fulfill that dubious role. I am presenting a carefully guided version of R materials that speaks to people like you who have spent some time learning statistics with a typical GP program like SPSS. You know that computers can be used for statistics and you know what data looks like (i.e., which are the cases or participants and which are the variables). What you don’t know is how to read a typical data file into R and start doing the stats you already understand, more or less. As you master those basics, you will free up cognitive space so that if you want to pursue an advanced facility with R, you will be able to and I certainly encourage you to. There are <em>many</em> materials freely available or at reasonable cost that will take you very far with R. At our basic workshops, we assure participants that if they were to go out and learn enough R to come back and teach <em>us</em> new things, we would consider that a win.</p>
+<p>Generally, once you have learned to do a particular task in R you will have created a template from your own or others’ code that you can reuse again and again with appropriate modifications on new data in different situations. You won’t be beginning from scratch every time you sit down with R. You won’t even need to learn to program to run a regression! In fact…<br />
+<code>lm(Y_var~X1 + X2 + X3, data=datafile)</code>…
+there you are… That’s a regression!</p>
+</div>
+<div id="brief-outline" class="section level2">
+<h2><span class="header-section-number">1.4</span> Brief outline</h2>
+<p>By the end of the guide in the current form (up to ANOVA), the following topics will have been covered:</p>
+<ul>
+<li>What is R
+<ul>
+<li>learning R is about changing the way you think about running stats a little</li>
+</ul></li>
+<li>R Studio
+<ul>
+<li>an important program that helps to control R</li>
+</ul></li>
+<li>R Project files
+<ul>
+<li>a special way of organizing projects within R Studio</li>
+</ul></li>
+<li>Reading data into R
+<ul>
+<li>some tricks</li>
+<li><code>here</code> package and why it is so fundamental in a learning environment</li>
+</ul></li>
+<li>Running basic descriptives in R
+<ul>
+<li>Describing a dataset and describing a specific set of variables</li>
+</ul></li>
+<li>Performing typical OLS regression diagnostics
+<ul>
+<li>labelling and dropping cases</li>
+</ul></li>
+<li>Running OLS regression and its variations
+<ul>
+<li>transformations</li>
+<li>moderation</li>
+<li>mediation</li>
+</ul></li>
+<li>Brief guide to implementing ANOVA in R
+<ul>
+<li>there are some controversies here…</li>
+</ul></li>
+</ul>
+<p>N.b., as more modules are added this outline will be expanded accordingly. This is a dynamic document.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="module-2-basics.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

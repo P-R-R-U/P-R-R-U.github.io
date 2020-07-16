@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5 Module 5: Regression and GLM procedures | Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats</title>
+  <meta name="description" content="5 Module 5: Regression and GLM procedures | Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5 Module 5: Regression and GLM procedures | Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 Module 5: Regression and GLM procedures | Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats" />
+  
+  
+  
+
+<meta name="author" content="Stefano Occhipinti" />
+
+
+<meta name="date" content="2020-04-26" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="module-4-regression-diagnostics.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Module 1: Prelude and Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#is-this-for-you"><i class="fa fa-check"></i><b>1.1</b> Is this for you?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#why-this-guide"><i class="fa fa-check"></i><b>1.2</b> Why this guide?</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#about-r"><i class="fa fa-check"></i><b>1.3</b> About R</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#brief-outline"><i class="fa fa-check"></i><b>1.4</b> Brief outline</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="module-2-basics.html"><a href="module-2-basics.html"><i class="fa fa-check"></i><b>2</b> Module 2: Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="module-2-basics.html"><a href="module-2-basics.html#tips-for-the-road-ahead"><i class="fa fa-check"></i><b>2.1</b> Tips for the road ahead</a></li>
+<li class="chapter" data-level="2.2" data-path="module-2-basics.html"><a href="module-2-basics.html#r-versus-spss-and-other-gp-stats-software"><i class="fa fa-check"></i><b>2.2</b> R versus SPSS and other GP stats software</a></li>
+<li class="chapter" data-level="2.3" data-path="module-2-basics.html"><a href="module-2-basics.html#r-is-entirely-code-based"><i class="fa fa-check"></i><b>2.3</b> R is entirely code-based</a></li>
+<li class="chapter" data-level="2.4" data-path="module-2-basics.html"><a href="module-2-basics.html#r-studio-an-app-for-efficiently-controlling-r"><i class="fa fa-check"></i><b>2.4</b> R Studio: An app for efficiently controlling R</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="module-2-basics.html"><a href="module-2-basics.html#customising-your-installation-of-r-studio-and-fixing-a-couple-of-problems-with-the-default-setup"><i class="fa fa-check"></i><b>2.4.1</b> Customising your installation of R Studio and fixing a couple of problems with the default setup</a></li>
+<li class="chapter" data-level="2.4.2" data-path="module-2-basics.html"><a href="module-2-basics.html#pesky-but-important-change-to-r-studio-default-pane-layout-that-will-be-set-and-forget"><i class="fa fa-check"></i><b>2.4.2</b> <strong>Pesky but important change to R Studio default pane layout that will be “set and forget”</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="module-2-basics.html"><a href="module-2-basics.html#r-project-files"><i class="fa fa-check"></i><b>2.5</b> R Project Files</a></li>
+<li class="chapter" data-level="2.6" data-path="module-2-basics.html"><a href="module-2-basics.html#preparing-the-r-project-directory"><i class="fa fa-check"></i><b>2.6</b> Preparing the R project directory</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="module-2-basics.html"><a href="module-2-basics.html#before-going-on-id-like-you-to-now-copy-the-course-files-into-the-r-project-directories."><i class="fa fa-check"></i><b>2.6.1</b> Before going on, I’d like you to now copy the course files into the R project directories.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="module-2-basics.html"><a href="module-2-basics.html#a-schema-for-how-r-works"><i class="fa fa-check"></i><b>2.7</b> A Schema for How R Works</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="module-2-basics.html"><a href="module-2-basics.html#r-has-a-lean-and-efficient-philosophy"><i class="fa fa-check"></i><b>2.7.1</b> R has a lean and efficient philosophy</a></li>
+<li class="chapter" data-level="2.7.2" data-path="module-2-basics.html"><a href="module-2-basics.html#things-you-will-only-do-once-each-time-you-re-install-r-on-a-computer"><i class="fa fa-check"></i><b>2.7.2</b> Things you will only do once each time you (re-)install R on a computer</a></li>
+<li class="chapter" data-level="2.7.3" data-path="module-2-basics.html"><a href="module-2-basics.html#things-you-will-only-need-to-do-once-in-any-new-r-session-on-any-type-of-computer"><i class="fa fa-check"></i><b>2.7.3</b> Things you will only need to do once in any new R session on any type of computer</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="module-2-basics.html"><a href="module-2-basics.html#objects-and-functions"><i class="fa fa-check"></i><b>2.8</b> OBJECTS and FUNCTIONS</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="module-2-basics.html"><a href="module-2-basics.html#the-last-important-r-concepts-before-looking-at-some-basic-code"><i class="fa fa-check"></i><b>2.8.1</b> The last important R concepts before looking at some basic code</a></li>
+<li class="chapter" data-level="2.8.2" data-path="module-2-basics.html"><a href="module-2-basics.html#clearing-objects-a-line-of-code-you-will-see-again-and-again"><i class="fa fa-check"></i><b>2.8.2</b> Clearing objects: a line of code you will see again and again</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="module-2-basics.html"><a href="module-2-basics.html#in-r-everything-we-do-is-a-function"><i class="fa fa-check"></i><b>2.9</b> In R, everything we do is a <em>function()</em></a><ul>
+<li class="chapter" data-level="2.9.1" data-path="module-2-basics.html"><a href="module-2-basics.html#there-are-exceptions-to-the-below-but-this-will-get-everyone-on-the-same-page-to-begin-with"><i class="fa fa-check"></i><b>2.9.1</b> There are exceptions to the below but this will get everyone on the same page to begin with</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="module-2-basics.html"><a href="module-2-basics.html#end-of-module"><i class="fa fa-check"></i><b>2.10</b> End of module</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><i class="fa fa-check"></i><b>3</b> Module 3: Addressing files, reading in data, and basic statistics</a><ul>
+<li class="chapter" data-level="3.1" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#reading-data-into-rusing-nesting"><i class="fa fa-check"></i><b>3.1</b> Reading data into R—using nesting!</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#first-clear-the-workspace-with-the-appropriate-code-at-the-top-of-the-file."><i class="fa fa-check"></i><b>3.1.1</b> First, clear the workspace with the appropriate code at the top of the file.</a></li>
+<li class="chapter" data-level="3.1.2" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#next-you-will-load-the-required-package."><i class="fa fa-check"></i><b>3.1.2</b> Next, you will load the required package.</a></li>
+<li class="chapter" data-level="3.1.3" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#now-you-will-try-to-read-in-the-data-and-you-will-see-how-nested-functions-and-objects-work-in-practice."><i class="fa fa-check"></i><b>3.1.3</b> Now, you will try to read in the data and you will see how nested functions and objects work in practice.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#describing-data-frames-and-variables"><i class="fa fa-check"></i><b>3.2</b> Describing data frames and variables</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#quickly-summarise-a-whole-data-frame-object"><i class="fa fa-check"></i><b>3.2.1</b> Quickly summarise a whole data frame object</a></li>
+<li class="chapter" data-level="3.2.2" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#summarising-variables-with-descriptive-statistics"><i class="fa fa-check"></i><b>3.2.2</b> Summarising variables with descriptive statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#reading-files-with-r-by-using-the-here-package"><i class="fa fa-check"></i><b>3.3</b> Reading files with R by using the <code>here</code> package</a></li>
+<li class="chapter" data-level="3.4" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#reading-csv-files-and-turning-them-into-data-frame-objects"><i class="fa fa-check"></i><b>3.4</b> Reading CSV files and turning them into data frame objects</a></li>
+<li class="chapter" data-level="3.5" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#preparing-data-to-have-numerics-and-factors-as-appropriate-especially-when-working-with-spss-files"><i class="fa fa-check"></i><b>3.5</b> Preparing data to have numerics and Factors as appropriate (especially when working with SPSS files)</a></li>
+<li class="chapter" data-level="3.6" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#end-of-module-1"><i class="fa fa-check"></i><b>3.6</b> End of module</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html"><i class="fa fa-check"></i><b>4</b> Module 4: Regression diagnostics</a><ul>
+<li class="chapter" data-level="4.1" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#ols-regression-in-r"><i class="fa fa-check"></i><b>4.1</b> OLS Regression in R</a></li>
+<li class="chapter" data-level="4.2" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#working-with-the-lm-object"><i class="fa fa-check"></i><b>4.2</b> Working with the <em>lm()</em> object</a></li>
+<li class="chapter" data-level="4.3" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#simple-diagnostics"><i class="fa fa-check"></i><b>4.3</b> Simple Diagnostics</a></li>
+<li class="chapter" data-level="4.4" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#running-regressions-dropping-influential-observations"><i class="fa fa-check"></i><b>4.4</b> Running regressions dropping influential observations</a></li>
+<li class="chapter" data-level="4.5" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#end-of-module-2"><i class="fa fa-check"></i><b>4.5</b> End of module</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html"><i class="fa fa-check"></i><b>5</b> Module 5: Regression and GLM procedures</a><ul>
+<li class="chapter" data-level="5.1" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#hierarchical-regression"><i class="fa fa-check"></i><b>5.1</b> Hierarchical regression</a></li>
+<li class="chapter" data-level="5.2" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#moderated-multiple-regression"><i class="fa fa-check"></i><b>5.2</b> Moderated multiple regression</a></li>
+<li class="chapter" data-level="5.3" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#mediation"><i class="fa fa-check"></i><b>5.3</b> Mediation</a></li>
+<li class="chapter" data-level="5.4" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#anova"><i class="fa fa-check"></i><b>5.4</b> ANOVA</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#issue-no.1"><i class="fa fa-check"></i><b>5.4.1</b> Issue no.1</a></li>
+<li class="chapter" data-level="5.4.2" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#issue-no.-2"><i class="fa fa-check"></i><b>5.4.2</b> Issue no. 2</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#end-of-module-3"><i class="fa fa-check"></i><b>5.5</b> End of module</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="module-5-regression-and-glm-procedures" class="section level1">
+<h1><span class="header-section-number">5</span> Module 5: Regression and GLM procedures</h1>
+<p><strong>To begin, open the glmModels.R file</strong></p>
+<p>After having assessed diagnostics, attnention can be turned to the regression analyses proper. All the analyses in this module will be based on the <em>binge.clean</em> data frame that was created at the end of Part 1b. It is the BDRV data without the observations at row numbers 777 (i.e., ID = 358) and 778 (i.e., ID = 212). The module will cover:</p>
+<ul>
+<li>multiple regression
+<ul>
+<li>use of binary and other categorical predictors</li>
+</ul></li>
+<li>hierarchical regression</li>
+<li>moderated multiple regression</li>
+<li>simple mediation</li>
+<li>some ANOVA
+<ul>
+<li>One-way B S/s</li>
+<li>Factorial B S/s</li>
+<li>Repeated measures and mixed factorials (limited)
+<ul>
+<li>via <code>afex()</code> package</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>The code in <em>glmModels.R</em> will produce an <em>lm()</em> object called <em>binge.clean</em>.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">binge &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">read.spss</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;BDRVdataR.sav&quot;</span>)))</a>
+<a class="sourceLine" id="cb57-2" data-line-number="2">binge.clean &lt;-<span class="st"> </span>binge[<span class="op">-</span><span class="kw">c</span>(<span class="dv">777</span>,<span class="dv">778</span>),]</a>
+<a class="sourceLine" id="cb57-3" data-line-number="3">regint.clean &lt;-<span class="st"> </span><span class="kw">lm</span>(intervention<span class="op">~</span>age <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>hospitality <span class="op">+</span><span class="st"> </span>conservative, <span class="dt">data=</span>binge.clean)</a></code></pre></div>
+<p>And the regression output is below:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="kw">summary</span>(regint.clean)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = intervention ~ age + sex + hospitality + conservative, 
+##     data = binge.clean)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.3726 -0.6437  0.0338  0.7252  2.7004 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     2.369220   0.160251  14.784  &lt; 2e-16 ***
+## age             0.029882   0.002814  10.620  &lt; 2e-16 ***
+## sexfemale       0.231851   0.075460   3.072   0.0022 ** 
+## hospitalityyes -0.093814   0.117216  -0.800   0.4238    
+## conservative    0.452548   0.055064   8.219 8.69e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.041 on 771 degrees of freedom
+## Multiple R-squared:  0.2238, Adjusted R-squared:  0.2198 
+## F-statistic: 55.59 on 4 and 771 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="kw">confint</span>(regint.clean)</a></code></pre></div>
+<pre><code>##                      2.5 %     97.5 %
+## (Intercept)     2.05464114 2.68379941
+## age             0.02435821 0.03540519
+## sexfemale       0.08371918 0.37998270
+## hospitalityyes -0.32391426 0.13628592
+## conservative    0.34445464 0.56064047</code></pre>
+<p>This output corresponds to most of the output from GP software like SPSS. To reiterate some of the above:</p>
+<ul>
+<li><code>Estimate</code> = b-weights (i.e., unstandardised regression weights)</li>
+<li><code>Std. Error</code> = standard error (i.e., se) of b-weight</li>
+<li><code>t value</code> = self explanatory</li>
+<li><code>Pr(&gt;|t|)</code> = p values (e.g., Sig.), note exponential notation</li>
+</ul>
+<p>Of more interest is the way that R has set up the regression model in <em>lm()</em>. In particular, note that the Factor variables, <em>sex</em> and <em>hospitality</em> have been automatically turned into dummies. Because these Factors have underlying numeric values (as they came from SPSS) the lowest numeric value is the reference category. Otherwise, for text only Factors, the category that is listed first alphabetically is the reference category (n.b., in either case, this can easily be changed). As well, <em>lm()</em> output shows the actual tested catgory (e.g., sex<em>female</em>) and so the b-weight shows the difference between females compared to males as the reference category.</p>
+<p>The creation of appropriate dummies will also occur for Factors with 3 or more levels. For example, the BDRV data contains a variable consisting of three groups on the basis of how frequently the participants reported engaging in binge behaviour (<em>bingegrp</em>: 1 = never; 2 = less than weekly; 3 = weekly or more). To briefly demonstrate how this Factor variable is treated in R, note the code below and the corresponding output.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="kw">summary</span>(<span class="kw">lm</span>(intervention<span class="op">~</span>bingegrp, <span class="dt">data=</span>binge.clean))</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = intervention ~ bingegrp, data = binge.clean)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -3.14752 -0.73977  0.05248  0.85248  2.85248 
+## 
+## Coefficients:
+##                                     Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                          4.93977    0.07052  70.053  &lt; 2e-16 ***
+## bingegrplow, binge less than weekly -0.63551    0.09164  -6.935 8.58e-12 ***
+## bingegrphigh, binge weekly or more  -0.79225    0.11877  -6.671 4.86e-11 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.135 on 773 degrees of freedom
+## Multiple R-squared:  0.07602,    Adjusted R-squared:  0.07363 
+## F-statistic:  31.8 on 2 and 773 DF,  p-value: 5.36e-14</code></pre>
+<ul>
+<li>Note that the Factor variable has been <em>automatically</em> converted into a pair of dummies for the purpose of the regression.</li>
+<li>The first category is automatically the reference category but this can be changed (either for a single regression or for all). However, if you take this into consideration when setting up response options for your data gathering, it can help your workflow considerably.
+<ul>
+<li>e.g., for the dummies in previous models, responses were no and yes. No comes alphabetically before yes and so no is the reference category.</li>
+</ul></li>
+<li>The special way in which Factors and numerics are dealt with in functions like lm() is one of the things that makes R so useful. Later, when looking at moderation and more complex models this approach will really bear fruit.</li>
+</ul>
+<p><strong>Transformations</strong>
+It is not necessary to compute transformations separately. In R, they are inserted directly into the formula in <em>lm()</em>. For example, the following computes a natural log transform of age in the regression.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="kw">summary</span>(<span class="kw">lm</span>(intervention<span class="op">~</span><span class="kw">log</span>(age) <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>hospitality <span class="op">+</span><span class="st"> </span>conservative, <span class="dt">data=</span>binge.clean))</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = intervention ~ log(age) + sex + hospitality + conservative, 
+##     data = binge.clean)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.3997 -0.6529  0.0488  0.7205  2.8481 
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    -0.22688    0.36100  -0.628  0.52988    
+## log(age)        1.04371    0.10205  10.227  &lt; 2e-16 ***
+## sexfemale       0.24199    0.07586   3.190  0.00148 ** 
+## hospitalityyes -0.09577    0.11787  -0.813  0.41673    
+## conservative    0.45914    0.05527   8.307  4.4e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.046 on 771 degrees of freedom
+## Multiple R-squared:  0.2166, Adjusted R-squared:  0.2125 
+## F-statistic: 53.29 on 4 and 771 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>For a square root transformation, the code would be:<br />
+<code>lm(intervention~sqrt(age) + sex + hospitality + conservative, data=binge.clean)</code>
+and so forth.</p>
+<p>However, it is almost never a good idea to transform variables…</p>
+<div id="hierarchical-regression" class="section level2">
+<h2><span class="header-section-number">5.1</span> Hierarchical regression</h2>
+<p>Running a hierarchical regression is straightforward in R. as the two blocks are assigned to their own objects and then the objects are compared with the <em>anova()</em> function.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1"><span class="co"># object labelled meaningfully but arbitrarily</span></a>
+<a class="sourceLine" id="cb66-2" data-line-number="2">block1 &lt;-<span class="st"> </span><span class="kw">lm</span>(intervention<span class="op">~</span>age <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>hospitality <span class="op">+</span><span class="st"> </span>conservative, <span class="dt">data=</span>binge.clean)</a>
+<a class="sourceLine" id="cb66-3" data-line-number="3"><span class="co">#summary(block1) *output suppressed</span></a>
+<a class="sourceLine" id="cb66-4" data-line-number="4">block2 &lt;-<span class="st"> </span><span class="kw">lm</span>(intervention<span class="op">~</span>age <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>hospitality <span class="op">+</span><span class="st"> </span>conservative <span class="op">+</span><span class="st"> </span>bingegrp, <span class="dt">data=</span>binge.clean)</a>
+<a class="sourceLine" id="cb66-5" data-line-number="5"><span class="co">#summary(block2) *output suppressed</span></a>
+<a class="sourceLine" id="cb66-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb66-7" data-line-number="7"><span class="co"># this is the line to obtain F for change</span></a>
+<a class="sourceLine" id="cb66-8" data-line-number="8"><span class="kw">anova</span>(block1, block2)</a></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: intervention ~ age + sex + hospitality + conservative
+## Model 2: intervention ~ age + sex + hospitality + conservative + bingegrp
+##   Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    
+## 1    771 836.24                                  
+## 2    769 816.63  2    19.611 9.2338 0.0001089 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<ul>
+<li>each block is listed as a separate regression</li>
+<li>the order in which the output objects are listed doesn’t matter as the <em>anova()</em> function will figure out the nesting based on degrees of freedom</li>
+<li>need to watch for differences across the regression owing to missing data
+<ul>
+<li>create marker for sample of people who have no missing data across entire list of predictors</li>
+</ul></li>
+<li>this approach can be extended to multiple pairs if there are more than 2 hierarchical blocks</li>
+</ul>
+</div>
+<div id="moderated-multiple-regression" class="section level2">
+<h2><span class="header-section-number">5.2</span> Moderated multiple regression</h2>
+<p>To express a moderated regression GLM in <em>lm()</em> is almost trivially easy. The product term is inserted directly into the formula passed to <em>lm()</em> as below.</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1">intermod &lt;-<span class="st"> </span><span class="kw">lm</span>(intervention<span class="op">~</span>sex <span class="op">+</span><span class="st"> </span>conservative<span class="op">*</span>stereotypical, <span class="dt">data=</span>binge.clean)</a>
+<a class="sourceLine" id="cb68-2" data-line-number="2"><span class="kw">summary</span>(intermod)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = intervention ~ sex + conservative * stereotypical, 
+##     data = binge.clean)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.3783 -0.7044  0.0246  0.6937  2.9544 
+## 
+## Coefficients:
+##                            Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                 3.67836    0.65740   5.595 3.06e-08 ***
+## sexfemale                   0.24205    0.07893   3.067  0.00224 ** 
+## conservative               -0.19099    0.25795  -0.740  0.45928    
+## stereotypical              -0.08826    0.13178  -0.670  0.50320    
+## conservative:stereotypical  0.13278    0.05063   2.622  0.00890 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.088 on 771 degrees of freedom
+## Multiple R-squared:  0.1526, Adjusted R-squared:  0.1482 
+## F-statistic: 34.72 on 4 and 771 DF,  p-value: &lt; 2.2e-16</code></pre>
+<ul>
+<li>the * operator replaces the + in these models to indicate the product term
+<ul>
+<li><em>lm()</em> automatically inserts the effects as two separate predicors (i.e., the marginals) + the product (i.e., the interaction), as appropriate</li>
+<li>use <code>conservative + stereotypical + conservative:stereotypical</code> format for explicit coding of marginals and interaction, e.g., more complex models with multiple interactions with shared marginals
+<ul>
+<li>e.g., <code>conservative + stereotypical + age + conservative:stereotypical + conservative:age</code></li>
+</ul></li>
+</ul></li>
+<li>scales up to three-way effects (e.g., <code>conservative*stereotypical*age</code>)</li>
+<li>automatically deals with categorical IVs or moderators (think products with dummy coding)
+<ul>
+<li>below, factorial designs in ANOVA are dealt with in similar fashion</li>
+</ul></li>
+<li>the model can also include separate controls besides the IV and moderator if desired, as usual</li>
+<li>if a more detailed sequence of models was required around the moderation, hierarchical models could also be done as above, e.g.,
+<ul>
+<li><code>b1 &lt;- lm(intervention~age + hospitality, data=binge.clean)</code></li>
+<li><code>b2 &lt;- lm(intervention~age + hospitality + sex + conservative*stereotypical, data=binge.clean)</code></li>
+<li><code>anova(b1, b2)</code></li>
+</ul></li>
+</ul>
+<p>Following up the initial test of moderation is facilitated by a package called <code>rockchalk</code>. This is a more general regression/GLM package that contains very useful functions for probing moderation. Rockchalk has extensive help in a freely available monograph.<br />
+<code>library(rockchalk)</code></p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1">ps  &lt;-<span class="st"> </span><span class="kw">plotSlopes</span>(intermod, <span class="dt">plotx=</span><span class="st">&quot;conservative&quot;</span>, <span class="dt">modx=</span><span class="st">&quot;stereotypical&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;Social Conservatism&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Intervention Efficacy&quot;</span>, <span class="dt">plotPoints =</span> <span class="ot">FALSE</span>, <span class="dt">modxVals =</span> <span class="st">&quot;std.dev&quot;</span>)</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1">testps &lt;-<span class="st"> </span><span class="kw">testSlopes</span>(ps)</a></code></pre></div>
+<pre><code>## Values of stereotypical OUTSIDE this interval:
+##        lo        hi 
+## -9.197273  3.084799 
+## cause the slope of (b1 + b2*stereotypical)conservative to be statistically significant</code></pre>
+<ul>
+<li><em>plotSlopes()</em> is a function that does plotting of conditional effects
+<ul>
+<li>the code snippet above deliberately includes the key parameters required</li>
+<li><em>numerics</em> treated as continuous and <em>Factors</em> treated as categorical moderators and dealt with automatically.</li>
+</ul></li>
+<li><em>testps()</em> is used to actually test conditional effects and does automatic Johnson-Neyman-type analysis on conditional slopes</li>
+</ul>
+</div>
+<div id="mediation" class="section level2">
+<h2><span class="header-section-number">5.3</span> Mediation</h2>
+<p>The pattern for running mediation analysis in R will bear evident similarities to the general approach that has been building where more complex analyses are set up with multiple simple objects (e.g., <em>lm()</em> fit objects) are combined by a target function in the package. The <code>mediation</code> package provides functions to test a large range of mediation models, including those with discrete mediators and outcomes (e.g., generalized models used for the discrete outcome/mediator variable and OLS regression for the continuous ones).</p>
+<p>To illustrate mediation, an analysis is run below in which the effect of age on beliefs in the efficacy of BDRV interventions is mediated by social conservatism. Note the this data was not set up to test this research question but rather it is presented as a somewhat feasible relationship for an example. There could well be hidden confounds in the data but that is beside the point. As well, <em>sex</em> is included to show how controls are easily incorporated into the models. The code is below:</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1"><span class="kw">library</span>(mediation)</a></code></pre></div>
+<pre><code>## Loading required package: MASS</code></pre>
+<pre><code>## 
+## Attaching package: &#39;MASS&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:rockchalk&#39;:
+## 
+##     mvrnorm</code></pre>
+<pre><code>## Loading required package: Matrix</code></pre>
+<pre><code>## Loading required package: mvtnorm</code></pre>
+<pre><code>## Loading required package: sandwich</code></pre>
+<pre><code>## mediation: Causal Mediation Analysis
+## Version: 4.5.0</code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" data-line-number="1">med.fit &lt;-<span class="st"> </span><span class="kw">lm</span>(conservative<span class="op">~</span>age <span class="op">+</span><span class="st"> </span>sex, <span class="dt">data=</span> binge.clean)</a>
+<a class="sourceLine" id="cb81-2" data-line-number="2">dv.fit &lt;-<span class="st"> </span><span class="kw">lm</span>(intervention<span class="op">~</span>conservative <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>sex, <span class="dt">data=</span> binge.clean)</a>
+<a class="sourceLine" id="cb81-3" data-line-number="3">med.out &lt;-<span class="st"> </span><span class="kw">mediate</span>(med.fit, dv.fit, <span class="dt">treat =</span> <span class="st">&quot;age&quot;</span>, <span class="dt">mediator =</span> <span class="st">&quot;conservative&quot;</span>, <span class="dt">robustSE =</span> <span class="ot">TRUE</span>, <span class="dt">sims =</span> <span class="dv">1000</span>)</a>
+<a class="sourceLine" id="cb81-4" data-line-number="4"><span class="kw">summary</span>(med.out)</a></code></pre></div>
+<pre><code>## 
+## Causal Mediation Analysis 
+## 
+## Quasi-Bayesian Confidence Intervals
+## 
+##                Estimate 95% CI Lower 95% CI Upper p-value    
+## ACME            0.00272      0.00102         0.00   0.002 ** 
+## ADE             0.03020      0.02485         0.04  &lt;2e-16 ***
+## Total Effect    0.03292      0.02739         0.04  &lt;2e-16 ***
+## Prop. Mediated  0.08025      0.03093         0.14   0.002 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Sample Size Used: 776 
+## 
+## 
+## Simulations: 1000</code></pre>
+<ul>
+<li><em>med.fit</em> is clearly an <em>lm()</em> object like any other that happens to include the statistical model for the mediator. This would provide the parameter for the <em>a</em> path in Baron and Kenny notation.</li>
+<li><em>dv.fit</em> is an <em>lm()</em> object that contains the full model (i.e., mediator and putative IV, with control) for the dependent variable. This would provide the parameters for the <em>b</em> and <em>c’</em> paths, respectively.
+<ul>
+<li>if desired, either of these objects could be inspected with the appropriate <em>summary()</em> lines in the code</li>
+</ul></li>
+<li><code>sims = 1000</code> sets the number of repetitions to 1000 for MC or bootstrapping. This would be higher for real analyses</li>
+<li>the default is a bayesian approach but inserting the parameter <code>boot = TRUE</code> in the <em>mediate()</em> function and removing <code>robustSE = TRUE</code> will provide the nonparametric bootstrapping with which researchers will be familiar</li>
+<li>ACME stands for Average Causal Mediation Effect and this is the estimate of the indirect effect (i.e., the key statistical parameter for mediation)</li>
+<li>ADE stands for Average Direct Effect and this is the effect of the IV on the DV, ignoring the Mediator
+<ul>
+<li>note that these will not necessarily be exactly equal to the paths from the OLS regressions in the <em>lm()</em> objects owing to the effects of simulations (i.e., bootstrapping or MC, according to the number of repetitions)</li>
+</ul></li>
+<li>The <em>Total Effect</em> is the sum of the indirect and direct effects, as usual.</li>
+</ul>
+</div>
+<div id="anova" class="section level2">
+<h2><span class="header-section-number">5.4</span> ANOVA</h2>
+<p><strong>Full disclosure: ANOVA is a point of controversy in R</strong>.</p>
+<div id="issue-no.1" class="section level3">
+<h3><span class="header-section-number">5.4.1</span> Issue no.1</h3>
+<p>Simply put, there are various ways to calculate Sums of Squares (SS) in ANOVA when there are multiple effects. These are generally described as Type I, II, and III SS, respectively. Software like SAS and SPSS default to Type III SS for unbalanced designs. (In case you were asking, Type I = sequential SS, like a hierarchical regression; Type II = marginal SS where effects are evaluated with all other effects partialled except higher order ones that include them; Type III = effects are evaluated with <em>all</em> other effects partialled, including higher order ones that include the target effects.) Stata and R, depending on the package, go to Type II (or Type I in some cases). The statistical purist’s choice is Type II. The people who maintain R are generally purists (and I am basically on their side, he said, surprising no one). However, ultimately, in balanced data, the answers should be the same; it’s just that data in factorial designs are so rarely balanced in practice. Also, <em>some</em> statistical authorities argue in favour of Type III SS, but it is fair to say <em>most</em> argue against them. <strong>In practice</strong>, if you use the base R <em>aov()</em> function, the order in which you list effects in the formula (i.e., <code>DV ~ Effect1*Effect2 + Covariate</code> is different to <code>DV ~ Covariate + Effect1*Effect2</code> and <code>Effect1*Effect2</code> is different to <code>Effect2*Effect1</code>). This will be different to the <em>Anova()</em> function from <code>car</code> which uses Type II SS. After having mastered these functions users will probably want to make use of specialised ANOVA packages such as <code>ez</code> and <code>afex</code>.</p>
+</div>
+<div id="issue-no.-2" class="section level3">
+<h3><span class="header-section-number">5.4.2</span> Issue no. 2</h3>
+<p>Repeated measures designs are a little tricky to set up and for mixed designs (i.e., between-within designs, not mixed effects models per se) you need to be pretty clear about the appropriate effects to use as error terms. Probably the best thing ultimately is to learn to use the mixed effects modelling package <code>lme4</code> and the <em>lmer()</em> function. Otherwise, the specialised ANOVA packages such as <code>ez</code> and <code>afex</code> are of great use here as well.</p>
+<p><strong>What does this mean in practice?</strong> A factorial or repeated measures ANOVA run in R most likely won’t give the exact same numbers as that run in SPSS or SAS but it should match Stata. If the effects are greatly different (vs just a slight difference in the value of the MS or F ratios), this is something that should be investigated thoroughly, in case there are influential data points combined with very small cells or similar. Ideally, by the time the ANOVA is run, anything potentially problematic in the data should have come to light.</p>
+<p><strong>Below, you will find the code for the “standard” designs</strong>. Most of these are as simple as you would expect. The spoiler is that for many, you can: a) use the <em>aov()</em> function to estimate the ANOVA directly, accepting the Type I, or sequential SS; or b) simply specify the design in <em>lm()</em> as usual with R taking care of the Factors versus the numerics and then feed that output into <em>anova()</em> or <em>car::Anova()</em> to obtain appropriate SS. If that’s the sort of thing you will need to do, one of the above will be an end to it. There are packages that make that job a little easier for those who do a ANOVAs regularly. There are packages for followups that will adjust familywise error and the usual stuff.There are also packages that will provide Type III SS, just like the big players do (dubiously!).</p>
+<p><strong>A brief summary of packages</strong></p>
+<ul>
+<li>base R
+<ul>
+<li><em>aov()</em>
+<ul>
+<li>takes anova formula (specified as for <em>lm()</em>) as direct input</li>
+<li>with <em>summary()</em> obtain a quick ANOVA table</li>
+<li>uses Type I (i.e., sequential/hierarchical) SS and this may not exactly match a precise RQ</li>
+<li>order of specification of effects in formula matters</li>
+</ul></li>
+<li><em>anova()</em>
+<ul>
+<li>takes an lm() object as input</li>
+<li>Type I SS as for <em>aov()</em></li>
+<li>cannot specify formula directly as for <em>aov()</em></li>
+<li>useful to compare nested model objects etc</li>
+</ul></li>
+</ul></li>
+<li><code>car</code>
+<ul>
+<li><em>Anova()</em></li>
+<li>uses Type II (i.e., marginal) SS and this generally provide defensible inference but watch for missing data</li>
+</ul></li>
+<li><code>ez</code>
+<ul>
+<li><em>ezANOVA()</em></li>
+<li>various functions; depends on <code>car</code></li>
+<li>specially created for factorials, between and within</li>
+<li>Type II SS</li>
+</ul></li>
+<li><code>afex</code>
+<ul>
+<li>various functions; depends on <code>car</code></li>
+<li>Type III SS</li>
+</ul></li>
+<li><code>emmeans</code>
+<ul>
+<li>provides covariate-adjusted means and predicted means in general, like the /EMMEANS subcommand in SPSS GLM (and SAS)</li>
+<li>similar feel to <code>margins</code> post-estimation command in Stata</li>
+<li>does simple main effects (and conditional or simple slopes)</li>
+<li>runs contrasts and other followups</li>
+<li>provides interaction plots</li>
+<li><strong>n.b.,</strong> <code>emmeans</code> can be used to followup linear models in general (e.g., mixed effects etc) and also generalized linear models with appropriate link functions if required</li>
+</ul></li>
+</ul>
+<p><strong>One-way B/Ss ANOVA and ANCOVA</strong>
+This is the simplest case. The <em>aov()</em> function probably gives you everything you need. Contrasts and comparisons can be made directly with <code>emmeans</code> package (the <em>pairs()</em> function defaults to tukey-style but see help() or vignette() as enormous capabilities here.</p>
+<ul>
+<li>ANOVA</li>
+</ul>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1"><span class="kw">library</span>(emmeans)</a>
+<a class="sourceLine" id="cb83-2" data-line-number="2">binge.aov &lt;-<span class="st"> </span><span class="kw">aov</span>(conservative<span class="op">~</span>bingegrp, <span class="dt">data =</span> binge.clean)</a>
+<a class="sourceLine" id="cb83-3" data-line-number="3"><span class="kw">summary</span>(binge.aov)</a></code></pre></div>
+<pre><code>##              Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## bingegrp      2   11.9   5.949   13.08 2.58e-06 ***
+## Residuals   773  351.5   0.455                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1">bingegrp.em &lt;-<span class="st"> </span><span class="kw">emmeans</span>(binge.aov, <span class="st">&quot;bingegrp&quot;</span>)</a>
+<a class="sourceLine" id="cb85-2" data-line-number="2"><span class="kw">pairs</span>(bingegrp.em)</a></code></pre></div>
+<pre><code>##  contrast                                                 estimate     SE  df
+##  never binge - low, binge less than weekly                   0.237 0.0545 773
+##  never binge - high, binge weekly or more                    0.309 0.0706 773
+##  low, binge less than weekly - high, binge weekly or more    0.072 0.0666 773
+##  t.ratio p.value
+##  4.353   &lt;.0001 
+##  4.378   &lt;.0001 
+##  1.081   0.5264 
+## 
+## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
+<ul>
+<li>ANCOVA</li>
+</ul>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1">binge.acv &lt;-<span class="st"> </span><span class="kw">aov</span>(conservative<span class="op">~</span>intervention <span class="op">+</span><span class="st"> </span>bingegrp, <span class="dt">data =</span> binge.clean)</a>
+<a class="sourceLine" id="cb87-2" data-line-number="2"><span class="kw">summary</span>(binge.acv)</a></code></pre></div>
+<pre><code>##               Df Sum Sq Mean Sq F value Pr(&gt;F)    
+## intervention   1   34.3   34.32  81.416 &lt;2e-16 ***
+## bingegrp       2    3.6    1.82   4.327 0.0135 *  
+## Residuals    772  325.4    0.42                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1">bingegrp.cem &lt;-<span class="st"> </span><span class="kw">emmeans</span>(binge.acv, <span class="st">&quot;bingegrp&quot;</span>)</a>
+<a class="sourceLine" id="cb89-2" data-line-number="2"><span class="kw">pairs</span>(bingegrp.cem)</a></code></pre></div>
+<pre><code>##  contrast                                                 estimate     SE  df
+##  never binge - low, binge less than weekly                  0.1342 0.0540 772
+##  never binge - high, binge weekly or more                   0.1808 0.0699 772
+##  low, binge less than weekly - high, binge weekly or more   0.0466 0.0642 772
+##  t.ratio p.value
+##  2.484   0.0352 
+##  2.587   0.0266 
+##  0.726   0.7483 
+## 
+## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
+<p>Try also specifying the model as <code>conservative~bingegrp + intervention</code> to see the difference in SS vs the above where the covariate is partialled first.</p>
+<p>**Between-subjects Factorial ANOVA
+The main issues here are the differences between the different packages and functions. All of the below generalises to higher order factorials (e.g., 2-way = <code>FactorA*FactorB</code>; 3-way = <code>FactorA*FactorB*FactorC</code>). After the basic approaches have been mastered, it is very important to examine the <code>emmeans</code> help vignettes carefully. These are extensive and serve as a set of tutorials in each of the tasks. Having a facility with how R code flows willmake it very easy to follow along. An important point here is that <code>emmeans</code> requires <em>aov()</em> objects and will not work with Anova() objects. Both <code>afex</code> and <code>ez</code> will return <em>aov()</em> objects for contrasts if required.</p>
+<ul>
+<li>aov() base R = Type I SS</li>
+<li><code>car::Anova</code> and <code>ez</code> = Type II SS
+<ul>
+<li><strong>n.b., <em>Anova()</em> with an a capital <em>A</em> is the required function</strong></li>
+<li>the <em>anova()</em> function is used in hierarchical regression</li>
+</ul></li>
+<li><p><code>afex</code> package = Type III, if required</p></li>
+<li>ANOVA<br />
+<code>bingesex.aov &lt;- aov(conservative~bingegrp*sex, data = binge.clean)</code><br />
+<code>summary(bingesex.aov)</code>
+<ul>
+<li>plot interaction<br />
+<code>emmip(bingesex.aov, bingegrp ~ sex)</code></li>
+<li>do simple contrasts of <em>bingesex</em> for each level of <em>sex</em><br />
+<code>bingesex.em &lt;- emmeans(bingesex.aov, ~ bingegrp * sex)</code><br />
+<code>pairs(bingesex.em, simple = &quot;bingegrp&quot;)</code></li>
+</ul></li>
+<li><p>ANCOVA
+Same as for ANOVA but include covariate in formula. If using <em>aov()</em>, be sure that the order of the effects matches your RQ, otherwise use <em>Anova()</em> version</p></li>
+</ul>
+<p><strong>Repeated measures ANOVA (limited)</strong>
+Please note that <code>ez</code> and <code>afex</code> may facilitate these designs, especially larger mixed factorials. A template for a basic 2-way mixed factorial is presented below:</p>
+<ul>
+<li><code>mixfac.aov &lt;- aov(DV ~ BSs_factor * WSs_factor + Error(id_var), data = data frame)</code>
+<ul>
+<li>data frame needs to be reshaped into so called, <em>long</em> format, where each participant has multiple rows of data, each row represents one repeated measures occasion, variables that are measured only once, are actually repeated on each row.</li>
+<li>for most, it might be easiest to enter data in spreadsheet (or SPSS) in usual <em>wide</em> format with careful variable names and use <em>reshape()</em> function from base R to convert to long. It’s not complex, it’s just a little detailed. Consult <em>help()</em> for <em>reshape()</em>. Once done it is easy to move back and forth.</li>
+<li>each of the Factors, including the Error one, need to be Factors in R.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="end-of-module-3" class="section level2">
+<h2><span class="header-section-number">5.5</span> End of module</h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="module-4-regression-diagnostics.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

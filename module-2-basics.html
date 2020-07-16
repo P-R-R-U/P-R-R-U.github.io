@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Module 2: Basics | Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats</title>
+  <meta name="description" content="2 Module 2: Basics | Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Module 2: Basics | Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Module 2: Basics | Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats" />
+  
+  
+  
+
+<meta name="author" content="Stefano Occhipinti" />
+
+
+<meta name="date" content="2020-04-26" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="module-3-addressing-files-reading-in-data-and-basic-statistics.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Module 1: Prelude and Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#is-this-for-you"><i class="fa fa-check"></i><b>1.1</b> Is this for you?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#why-this-guide"><i class="fa fa-check"></i><b>1.2</b> Why this guide?</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#about-r"><i class="fa fa-check"></i><b>1.3</b> About R</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#brief-outline"><i class="fa fa-check"></i><b>1.4</b> Brief outline</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="module-2-basics.html"><a href="module-2-basics.html"><i class="fa fa-check"></i><b>2</b> Module 2: Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="module-2-basics.html"><a href="module-2-basics.html#tips-for-the-road-ahead"><i class="fa fa-check"></i><b>2.1</b> Tips for the road ahead</a></li>
+<li class="chapter" data-level="2.2" data-path="module-2-basics.html"><a href="module-2-basics.html#r-versus-spss-and-other-gp-stats-software"><i class="fa fa-check"></i><b>2.2</b> R versus SPSS and other GP stats software</a></li>
+<li class="chapter" data-level="2.3" data-path="module-2-basics.html"><a href="module-2-basics.html#r-is-entirely-code-based"><i class="fa fa-check"></i><b>2.3</b> R is entirely code-based</a></li>
+<li class="chapter" data-level="2.4" data-path="module-2-basics.html"><a href="module-2-basics.html#r-studio-an-app-for-efficiently-controlling-r"><i class="fa fa-check"></i><b>2.4</b> R Studio: An app for efficiently controlling R</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="module-2-basics.html"><a href="module-2-basics.html#customising-your-installation-of-r-studio-and-fixing-a-couple-of-problems-with-the-default-setup"><i class="fa fa-check"></i><b>2.4.1</b> Customising your installation of R Studio and fixing a couple of problems with the default setup</a></li>
+<li class="chapter" data-level="2.4.2" data-path="module-2-basics.html"><a href="module-2-basics.html#pesky-but-important-change-to-r-studio-default-pane-layout-that-will-be-set-and-forget"><i class="fa fa-check"></i><b>2.4.2</b> <strong>Pesky but important change to R Studio default pane layout that will be “set and forget”</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="module-2-basics.html"><a href="module-2-basics.html#r-project-files"><i class="fa fa-check"></i><b>2.5</b> R Project Files</a></li>
+<li class="chapter" data-level="2.6" data-path="module-2-basics.html"><a href="module-2-basics.html#preparing-the-r-project-directory"><i class="fa fa-check"></i><b>2.6</b> Preparing the R project directory</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="module-2-basics.html"><a href="module-2-basics.html#before-going-on-id-like-you-to-now-copy-the-course-files-into-the-r-project-directories."><i class="fa fa-check"></i><b>2.6.1</b> Before going on, I’d like you to now copy the course files into the R project directories.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="module-2-basics.html"><a href="module-2-basics.html#a-schema-for-how-r-works"><i class="fa fa-check"></i><b>2.7</b> A Schema for How R Works</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="module-2-basics.html"><a href="module-2-basics.html#r-has-a-lean-and-efficient-philosophy"><i class="fa fa-check"></i><b>2.7.1</b> R has a lean and efficient philosophy</a></li>
+<li class="chapter" data-level="2.7.2" data-path="module-2-basics.html"><a href="module-2-basics.html#things-you-will-only-do-once-each-time-you-re-install-r-on-a-computer"><i class="fa fa-check"></i><b>2.7.2</b> Things you will only do once each time you (re-)install R on a computer</a></li>
+<li class="chapter" data-level="2.7.3" data-path="module-2-basics.html"><a href="module-2-basics.html#things-you-will-only-need-to-do-once-in-any-new-r-session-on-any-type-of-computer"><i class="fa fa-check"></i><b>2.7.3</b> Things you will only need to do once in any new R session on any type of computer</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="module-2-basics.html"><a href="module-2-basics.html#objects-and-functions"><i class="fa fa-check"></i><b>2.8</b> OBJECTS and FUNCTIONS</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="module-2-basics.html"><a href="module-2-basics.html#the-last-important-r-concepts-before-looking-at-some-basic-code"><i class="fa fa-check"></i><b>2.8.1</b> The last important R concepts before looking at some basic code</a></li>
+<li class="chapter" data-level="2.8.2" data-path="module-2-basics.html"><a href="module-2-basics.html#clearing-objects-a-line-of-code-you-will-see-again-and-again"><i class="fa fa-check"></i><b>2.8.2</b> Clearing objects: a line of code you will see again and again</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="module-2-basics.html"><a href="module-2-basics.html#in-r-everything-we-do-is-a-function"><i class="fa fa-check"></i><b>2.9</b> In R, everything we do is a <em>function()</em></a><ul>
+<li class="chapter" data-level="2.9.1" data-path="module-2-basics.html"><a href="module-2-basics.html#there-are-exceptions-to-the-below-but-this-will-get-everyone-on-the-same-page-to-begin-with"><i class="fa fa-check"></i><b>2.9.1</b> There are exceptions to the below but this will get everyone on the same page to begin with</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="module-2-basics.html"><a href="module-2-basics.html#end-of-module"><i class="fa fa-check"></i><b>2.10</b> End of module</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><i class="fa fa-check"></i><b>3</b> Module 3: Addressing files, reading in data, and basic statistics</a><ul>
+<li class="chapter" data-level="3.1" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#reading-data-into-rusing-nesting"><i class="fa fa-check"></i><b>3.1</b> Reading data into R—using nesting!</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#first-clear-the-workspace-with-the-appropriate-code-at-the-top-of-the-file."><i class="fa fa-check"></i><b>3.1.1</b> First, clear the workspace with the appropriate code at the top of the file.</a></li>
+<li class="chapter" data-level="3.1.2" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#next-you-will-load-the-required-package."><i class="fa fa-check"></i><b>3.1.2</b> Next, you will load the required package.</a></li>
+<li class="chapter" data-level="3.1.3" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#now-you-will-try-to-read-in-the-data-and-you-will-see-how-nested-functions-and-objects-work-in-practice."><i class="fa fa-check"></i><b>3.1.3</b> Now, you will try to read in the data and you will see how nested functions and objects work in practice.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#describing-data-frames-and-variables"><i class="fa fa-check"></i><b>3.2</b> Describing data frames and variables</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#quickly-summarise-a-whole-data-frame-object"><i class="fa fa-check"></i><b>3.2.1</b> Quickly summarise a whole data frame object</a></li>
+<li class="chapter" data-level="3.2.2" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#summarising-variables-with-descriptive-statistics"><i class="fa fa-check"></i><b>3.2.2</b> Summarising variables with descriptive statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#reading-files-with-r-by-using-the-here-package"><i class="fa fa-check"></i><b>3.3</b> Reading files with R by using the <code>here</code> package</a></li>
+<li class="chapter" data-level="3.4" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#reading-csv-files-and-turning-them-into-data-frame-objects"><i class="fa fa-check"></i><b>3.4</b> Reading CSV files and turning them into data frame objects</a></li>
+<li class="chapter" data-level="3.5" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#preparing-data-to-have-numerics-and-factors-as-appropriate-especially-when-working-with-spss-files"><i class="fa fa-check"></i><b>3.5</b> Preparing data to have numerics and Factors as appropriate (especially when working with SPSS files)</a></li>
+<li class="chapter" data-level="3.6" data-path="module-3-addressing-files-reading-in-data-and-basic-statistics.html"><a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html#end-of-module-1"><i class="fa fa-check"></i><b>3.6</b> End of module</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html"><i class="fa fa-check"></i><b>4</b> Module 4: Regression diagnostics</a><ul>
+<li class="chapter" data-level="4.1" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#ols-regression-in-r"><i class="fa fa-check"></i><b>4.1</b> OLS Regression in R</a></li>
+<li class="chapter" data-level="4.2" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#working-with-the-lm-object"><i class="fa fa-check"></i><b>4.2</b> Working with the <em>lm()</em> object</a></li>
+<li class="chapter" data-level="4.3" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#simple-diagnostics"><i class="fa fa-check"></i><b>4.3</b> Simple Diagnostics</a></li>
+<li class="chapter" data-level="4.4" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#running-regressions-dropping-influential-observations"><i class="fa fa-check"></i><b>4.4</b> Running regressions dropping influential observations</a></li>
+<li class="chapter" data-level="4.5" data-path="module-4-regression-diagnostics.html"><a href="module-4-regression-diagnostics.html#end-of-module-2"><i class="fa fa-check"></i><b>4.5</b> End of module</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html"><i class="fa fa-check"></i><b>5</b> Module 5: Regression and GLM procedures</a><ul>
+<li class="chapter" data-level="5.1" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#hierarchical-regression"><i class="fa fa-check"></i><b>5.1</b> Hierarchical regression</a></li>
+<li class="chapter" data-level="5.2" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#moderated-multiple-regression"><i class="fa fa-check"></i><b>5.2</b> Moderated multiple regression</a></li>
+<li class="chapter" data-level="5.3" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#mediation"><i class="fa fa-check"></i><b>5.3</b> Mediation</a></li>
+<li class="chapter" data-level="5.4" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#anova"><i class="fa fa-check"></i><b>5.4</b> ANOVA</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#issue-no.1"><i class="fa fa-check"></i><b>5.4.1</b> Issue no.1</a></li>
+<li class="chapter" data-level="5.4.2" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#issue-no.-2"><i class="fa fa-check"></i><b>5.4.2</b> Issue no. 2</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="module-5-regression-and-glm-procedures.html"><a href="module-5-regression-and-glm-procedures.html#end-of-module-3"><i class="fa fa-check"></i><b>5.5</b> End of module</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Basics of R for 6020PSY Students | A brief, low pain intro to just doing the stats</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="module-2-basics" class="section level1">
+<h1><span class="header-section-number">2</span> Module 2: Basics</h1>
+<div id="tips-for-the-road-ahead" class="section level2">
+<h2><span class="header-section-number">2.1</span> Tips for the road ahead</h2>
+<p><strong>The initial parts (including the present one) are longer than later ones</strong>. This is by design. To touch on points discussed in more detail in Module 1, this guide is designed for people who have studied or are studying statistics and methodology in a typical undergraduate sequence in psychology (see <em>Assumptions</em> in Part 1). You will already have a schema for a data file and other statistical concepts. You will most likely have used another statistics package. At Griffith (as at many other places) that will be SPSS. However, the principles (e.g., differences between such packages and R) will be the same. The aim of this guide is to equip you with enough of the basic tools (and the <em>understanding</em> to use them) required to do the stats you already know or are in the process of learning. For this reason, most of the functions are from <code>base R</code> or very widely used packages, such as <code>car</code>. Having mastered these, people who need and want to go on to learn to use contemporary tools such as the whole <code>tidyverse</code> can do so and will probably find it easier to pick up the new packages and functions. <strong>It is safe to assume that every skill shown in this guide will have at least 1 or 2 different ways to be implemented</strong>. This is how R works. Once you have the key, <em>you</em> can decide for yourself which packages and approaches to use or you can adapt to the norms of a new lab or workplace.</p>
+<p>Because some of the concepts covered in this module of the guide, such as <em>objects</em> and <em>functions</em>, are so fundamental (i.e., they will be applied to virtually everything you will do with R), I will spend a comparatively long time and devote plenty of words to them. This will make this first module seem to go a little slowly. My advice is to take it at exactly the pace that feels comfortable to you (as quickly or as slowly as that is). I’ve done this because you are honours students and you can devote your cognitive space to understanding the concepts. You will then continue to learn them by putting them into practice in almost every later piece of R code you write or run from this point. You may return to consult this module while doing later ones. The benefit of spending time discussing these concepts here is that there is much less that needs to be covered in later modules and I there can spend almost all the time (and your concentration) discussing how to do the actual stats, rather than the intricacies of getting R to send plots to PDF files**.</p>
+</div>
+<div id="r-versus-spss-and-other-gp-stats-software" class="section level2">
+<h2><span class="header-section-number">2.2</span> R versus SPSS and other GP stats software</h2>
+<p>SPSS is similar to many other GP packages (e.g., some widely used ones are SAS and Stata). Of these, SPSS is by far the least flexible, but they are all a bit constrained and this is by design. R has taken a different path. By contrast, GP software is almost totally geared to doing stats in a basic way that facilitates a certain workflow:</p>
+<ul>
+<li>When you read in data, rows are cases (e.g., people) and columns are variables by default.</li>
+<li>When you run a line of code (e.g., in SPSS syntax: <em>reg var= intervention…</em>), something generally happens and formatted output is sent <em>automatically</em> to the output window so you just need to go to the output window and look through it. <strong>In R, this process is not so automatic, but it turns out that’s better in the long run!</strong></li>
+</ul>
+<p>It is possible to overcome the limitations of GP software but often this is very cumbersome or not feasible for the standard user (e.g., trying to bootstrap mediation analyses in SPSS without the <em>process</em> macro didn’t really used to be feasible for the typical user).</p>
+<p><strong>R is completely flexible, but this is both a blessing and curse for students like you</strong>. The trick is to keep the blinkers on and stick to doing things in a fixed way at first. R is object-oriented and this tends to make it very modular. If you spend time learning basic skills, you can then easily build on those as you become more advanced and confident and take off the blinkers, as it were. A good plan here is to use R to solve meaningful problems so that you gradually gain understanding in the context of trying to achieve feasible goals. <em>Many complex tasks in R are dealt with by connecting a series of smaller, simpler functions rather than by trying to make a single, complex one</em>.</p>
+</div>
+<div id="r-is-entirely-code-based" class="section level2">
+<h2><span class="header-section-number">2.3</span> R is entirely code-based</h2>
+<p><strong>Code is the specific language in which you write a computer program</strong>. SPSS syntax is a very rudimentary coding language you’ve already learned a little. Consider this, in almost every aspect SPSS syntax is a more flexible and efficient way to do tasks than the SPSS “menus” (i.e., the GUI). Other software like SAS and Stata have even more sophisticated and powerful coding languages. In the world of R, there are programs such as jamovi and JASP and others that sit on top of R and actually generate R code and run it in the background when you make menu selections (as I wrote above, I won’t discuss this here). R code is probably the most fine grained of these examples because R is designed for statistical computing. It means all sorts of stats are possible and if you gain some understanding of coding you can even program your own stats or other tasks. However, it also means you will need to use <em>some coding conventions</em> for tasks such as reading in the data and running the stats. This is not nearly as complex as you might imagine and once I have shown you how to do it, you’ll easily be able to adapt it for new files.</p>
+<p>Advantages of coding (for all GP software) are:</p>
+<ul>
+<li>it allows <em>fine-grained control</em> and forces the data analyst to be specific about what they are doing rather than click-and-hope</li>
+<li>it automatically leaves an <em>audit trail</em> so you (and the rest of us) can keep track of what you have been doing. You can make it even better by leaving careful <em>comments</em> in your code <strong>(very important advantage)</strong></li>
+<li>it <em>facilitates getting help</em> with your trickier problems from others who are more expert
+<ul>
+<li>can get others’ code online and adapt to solve your problem</li>
+<li>F2F or online consultants/guides (or interested onlookers!) can see what you are trying to do by inspecting your code and make suggestions (e.g., StackOverflow)—can’t do this easily with menus as virtually no one can figure out what you’ve been clicking</li>
+</ul></li>
+</ul>
+<p><strong>In this guide, I will try to give you the templates of basic code needed to read in data and run some stats</strong>. The <strong>good news</strong> is that the actual code for the stats is the simplest bit!</p>
+<p>Below you will see some code to run a multiple linear regression on variables you may recognise from the BDRV data. It’s quite a bit more fleshed out than the simple example code snippet in Module 1, so from now on, focus on each new example as it comes up. The box underneath the code in which each line is prefixed with ## shows the output that R produces. In an actual data analysis session, the R output isn’t prefixed like that in the console, but doing so is a convention used in guides like this one. <em>Note that this convention will be the same throughout this and any later modules</em> but for some output that would be too large to include in its entirety, I have opted for partial screenshots from an actual R session.</p>
+<p>Remember, you could re-use this line in your own R session with an appropriately set up project and the only parts you would need to alter are the actual variable names to match your data.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">regint &lt;-<span class="st"> </span><span class="kw">lm</span>(intervention<span class="op">~</span>age <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>hospitality <span class="op">+</span><span class="st"> </span>conservative, <span class="dt">data=</span>binge)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">summary</span>(regint)</a></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = intervention ~ age + sex + hospitality + conservative, 
+##     data = binge)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.3854 -0.6485  0.0366  0.7241  2.7071 
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     2.44444    0.16079  15.202  &lt; 2e-16 ***
+## age             0.02695    0.00275   9.799  &lt; 2e-16 ***
+## sexfemale       0.24741    0.07617   3.248  0.00121 ** 
+## hospitalityyes -0.10715    0.11840  -0.905  0.36577    
+## conservative    0.45265    0.05564   8.135 1.64e-15 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.052 on 773 degrees of freedom
+## Multiple R-squared:  0.208,  Adjusted R-squared:  0.2039 
+## F-statistic: 50.76 on 4 and 773 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Note that this is just the default print out of a regression object in R. You could do many many things with this output with just a few lines of code. You could even use R functionality to generate APA tables directly from this output and save them as Word files or PDFs. But first things first…</p>
+</div>
+<div id="r-studio-an-app-for-efficiently-controlling-r" class="section level2">
+<h2><span class="header-section-number">2.4</span> R Studio: An app for efficiently controlling R</h2>
+<p>When you start R directly from the task bar or start menu in Windows or Mac equivalent, or the terminal in Linux, a single window, called the <em>console</em> appears. This is often described colloquially as <em>native R</em>. Running native R in the console is a little… sparse… If you had anything to do with computers and stats or programming up to about the 80s, you will recognise the non-graphics-based computing feel. When R starts or after a command has run successfully, the user is presented with a “&gt;” prompt at the start of the new line. That is R essentially sitting there asking, “What do you want now? Be specific!”.</p>
+<p><strong>Instead, most data analysts will use a program/app called <em>R Studio</em> for a more useful and pleasant control panel</strong>. This type of app is known as an integrated development environment (IDE). Programmers use IDEs to make their work more efficient and if you want to waste a few lazy and incomprehensible hours you might listen in on web conversations about the relative merits of these. Around the web, you’ll find analogies made about IDEs such as R Studio that compare them to the cockpit of a plane or to a steering wheel, with R being the plane or the rest of the car, and so forth. You probably get the picture. I personally like the analogy where R is like a luge sled (from the Winter Olympics). It’s lean, fast, and incredibly efficient at what it does but you <em>really</em> need to know what you are doing and there is no effective margin for error. R Studio is more like heading down the same track in a bobsled (ignore the other riders for this). It’s still really fast and you still need a measure of specific skills, but you have a lot more control and a bit more margin for error. Perhaps as you go through this guide, you too can come up with a cheesy analogy.</p>
+<p><strong>R Studio, like R, is open source and free of cost</strong>. There are paid for versions but these are for corporate/production or server versions and the cost is mainly for support and server-related things. <em>The basic, free version has full functionality for data analysis and it is all you will need, likely ever</em>. The app organises your R work into a group of windows, called <em>panes</em> around an R console that is itself now a pane within R Studio! Essentially, an instance of R is running inside R Studio in the latter’s <em>console</em> pane and as you proceed in a data analysis session, the console pane will contain a print out both of the R code sent to it (called, <em>echoing the code</em>) and of any output that arises, along with any error messages. R Studio adds a <em>source</em> pane which is where you actually write the code before running it, and panes for <em>graphics</em> (e.g., some R functions output plots and figures here), <em>help</em>, and other things. Some panes, like the <em>source</em> pane, have only one function. Other panes, like the <em>files/plots/packages/help/viewer</em> pane, have many functions that can be selected with tabs. In practice, this is not actually that complex. Figure 1 shows a screenshot of an R Studio session with the overall R Studio window containing all the typical panes. This is my own installation of R Studio, somewhat modified while writing this guide. When you first install it, your version will appear slightly different. <em>It’s not an error</em> and later I’ll discuss how to change it.</p>
+<div class="figure">
+<img src="images/RStudioExampleSession1.png" alt="Figure 1 | Typical R Studio Session Window with active panes labelled" />
+<p class="caption"><strong>Figure 1</strong> | Typical R Studio Session Window with active panes labelled</p>
+</div>
+<p><strong>I strongly encourage you to use R Studio</strong>. All examples in this guide will be presented assuming the user is working through R Studio. The way that I will use R Studio to work in R is as follows:</p>
+<ol style="list-style-type: decimal">
+<li>Write code and edit as needed in the R Studio <em>source pane</em>.</li>
+<li>Select the code fragment with mouse as usual.</li>
+<li><strong>Ctrl + Enter</strong> = run code.</li>
+<li>Check output that will be found in the R Studio <em>console pane</em>.</li>
+</ol>
+<ol style="list-style-type: lower-roman">
+<li>continue on; or</li>
+<li>go back and fix it up.</li>
+</ol>
+<ol start="5" style="list-style-type: decimal">
+<li>Goto 1)</li>
+</ol>
+<p>This makes the workflow very similar to what you are used to with SPSS</p>
+<div id="customising-your-installation-of-r-studio-and-fixing-a-couple-of-problems-with-the-default-setup" class="section level3">
+<h3><span class="header-section-number">2.4.1</span> Customising your installation of R Studio and fixing a couple of problems with the default setup</h3>
+<p>You can go about and customize as much or as little as you like. Click on the <strong>Tools/Global Options</strong> menu and you can change colour scheme and much more in <em>Appearance</em> and you might also want to modify (at least while following this guide) the <em>Pane Layout</em> (I show the steps for this below). Modifications are easy and reversible. For example, for the sake of readable figures, I temporarily made the font much larger for some screenshots while writing this guide and Matt and I did this when running workshops and sharing or projecting our screens. I will leave you to explore that yourselves. But first, here are a couple of <strong>very important</strong> and useful options changes. Go to <strong>Tools/Global Options/General</strong> (<em>General</em> should be the first tab and visible by default; see Figure 2).</p>
+<ol style="list-style-type: decimal">
+<li>Clear the checkbox for <strong>Workspace</strong> (<em>Restore .RData into workspace at startup</em>) and make sure the <em>Save workspace…</em> option is set to <em>Never</em>.</li>
+</ol>
+<ul>
+<li>This is an option that even Native R always asks you when you quit and you would virtually never say <em>Yes</em>, so this is just a handy change. Saying <em>yes</em> would have R save the previous session’s workspace and reopen it in the new one. But, trust me, you <em>don’t</em> want old sessions and their objects potentially messing up new sessions when you are doing stats with R.</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Clear both of the History boxes. (i.e., uncheck <em>Always save history…</em> and <em>Remove duplicates…</em>).</li>
+</ol>
+<ul>
+<li>Many R geeks have pointed out that depending on what data you are reading and working on with R (e.g., personal health identifiers in health surveys or databases), R might save items such as hospital record numbers and other important characteristics in the History in a way that you might not have noticed and this is obviously a risk. Get rid of it! The typical user would essentially never need to inspect their R history.</li>
+</ul>
+<p>You’ll find a version of these tips all over the web. <em>I didn’t think of them but I definitely use them</em>. [hint: if you have found .RHistory files in your folders/directories, you can safely delete them and you should do so]</p>
+<div class="figure">
+<img src="images/RStudioOptions.png" alt="Figure 2 | R Studio Options dialogue" />
+<p class="caption"><strong>Figure 2</strong> | R Studio Options dialogue</p>
+</div>
+<p>If you ’re wondering about the colour schemes in <em>Appearance</em>, I use a light background scheme for teaching and projecting/screen sharing as it seems to work better with the text on R Studio panes. The current guide will have screenshots mainly in <em>Chrome</em>. For my own work, I have a preference for dark backgrounds and <em>Twilight Night Bright</em> is my usual go to, for the contrast!</p>
+</div>
+<div id="pesky-but-important-change-to-r-studio-default-pane-layout-that-will-be-set-and-forget" class="section level3">
+<h3><span class="header-section-number">2.4.2</span> <strong>Pesky but important change to R Studio default pane layout that will be “set and forget”</strong></h3>
+<p>Another change that I made early on in my use of R Studio (I believe I saw it on a Youtube vid) is to shift the standard pane layout. I do this any time I install or re-install R Studio. By default, R Studio places the <em>console</em> pane (where the output goes) on the bottom left under the <em>source</em> pane (where the R code sits). When you first install R Studio and open the app, everything seems correct. The thing you would recognise as the native R Console seems to be in the most important and largest pane on the left. But that is only because there is no <em>source</em> pane open yet. The <em>source</em> pane is the most important pane as all of your work writing code and asking for stats is there and it should be set up to easily have the most space when required. I modify this default using <strong>Tools/Global Options/Pane Layout</strong> so that the <em>console</em> pane is on the top right, next to the <em>source</em> pane and the <em>environment/history/connections</em> pane is on the bottom left. You will note that that is how my R Studio is set up in Figure 1 above. The reason is that it is efficient to have whatever output that R will generate pop up right next to the R code you just ran. Also, it is often very useful to be able to lengthen the source pane as the length of the R code that you are writing grows (if you hover your mouse over the pane borders in the usual way you will see the pointer becomes a little grabbing fist and you can move them up and down and left to right). The <em>environment</em> pane is not something you need to constantly see in its entirety and using this layout, you can shrink or minimise it to give more space for code. If you need to check the environment (e.g., to see if you have correctly created an object), it is very easy to do so by scrolling in the shrunken pane or bringing it back if minimised. <strong>I strongly suggest you make this modification</strong>. Any online sessions or screencasts that I run will have this layout and it will be helpful for you to be able to see the same layout on your own screen. Plus, it’s just better. You can always change it back later if you wish. Finally for this topic, using the R Studio <em>View</em> menu or any associated keyboard shortcuts, you can zoom or maximise any pane you like, but most of the time, beginners will have all 4 panes visible, hence the modifications.</p>
+</div>
+</div>
+<div id="r-project-files" class="section level2">
+<h2><span class="header-section-number">2.5</span> R Project Files</h2>
+<p><strong>R Studio has a special type of file, called an <em>R Project File</em>, that helps to organise R projects</strong>. These are like virtual containers that organize all files/folders to do with a… project! This will also help to avoid the use of clunky and nonportable file paths in code, which is a nontrivial benefit that addresses a problem that occurs not just in R. How many times have you had hassles because files and folders you created or worked on at university in the labs wouldn’t work as planned or were hard to find at home? There is a simple but annoying reason for that that I will try to explain below. The important thing is that the use of R Project files neatly solves 99% of these issues.</p>
+<p><strong>The R Project “exists” within R Studio</strong>. To explain this without getting esoteric and to keep to the <em>just enough code to do the stats</em> approach, consider the following. Almost all of us have folders on our PC/Mac/Linux/Whatever machines specifically devoted to things like pictures, videos, downloads, and so forth. Similarly, when a new project pops up, you may have a folder in your filesystem on your machine that you may have created or devoted to it. (E.g., how many people reading this will already have a thesis folder?)</p>
+<p>When you set up an R Project, you either create a new folder for it or designate an existing one to it and R Studio inserts a special <em>project</em> file (and a bunch of other things that are ordinarily hidden and can stay hidden) that works like a map of your folders. <strong>The project file tells R Studio what it should consider to be a part of that project</strong>. R Studio then ring fences these folders in its map to mark them off from everything else whenever it is dealing with <em>the specific project</em>. Then, it doesn’t matter what else is on your machine/hard disk outside the project. For example, a typical Windows PC will provide a directory/library called <em>My Documents</em>. However, the actual full path of the My Documents directory is something like: “C:\Users\stefano\Documents” and so a 6020PSY folder with <em>your</em> R learning in your My Documents at home could be something like “C:\Users\You\Documents\UniStuff\6020PSY\R_course” and every time you copied this folder onto a USB and brought it to another computer everything up to <em>R_course</em> would change. Instead, if this <em>R_course</em> folder was an R project, R Studio would insert a special R Project file in it so that when you copied the whole thing onto a USB as usual and brought it from your computer to another one you use (even from PC to Mac or vice versa) and you opened it in R Studio again, everything would work the same. R Studio would ignore <em>all the files and folders outside the R Project folder</em> and only focus on what is inside it. You as the user don’t have to worry about any of that as it is all handled inside R Studio. Naturally, if you try hard enough you will defeat any system, including this one, but that is outside the scope of this guide.</p>
+<p><strong>The best way to gain an understanding of and some familiarity with R Project files is to just start using a basic form of them</strong>. As usual, it probably takes longer to describe than to use them. You can create a new R Project file from scratch (see below) or convert existing folder/directory to an R Project just as easily. It’s a good idea to designate a folder and corresponding R Project for every actual project you do right from the start. After the information below, I will spend some time explaining why and how to set up your folder to gain the maximum benefit.</p>
+<p><strong>Creating an R project file (two different ways)</strong></p>
+<ol style="list-style-type: decimal">
+<li><strong>To create a new folder</strong>, in R Studio: <em>File/New Project/New Directory/New Project</em></li>
+</ol>
+<ul>
+<li>Name it carefully, briefly, and avoid spaces (use underscore _ or hyphen - instead or UpperAndLowerCase)</li>
+<li>Browse for parent directory (where you want to put it) then Create Project</li>
+<li>If you haven’t yet created a folder/directory for your work on this R learning guide, do so now. Call it whatever you like, respecting the norms above. I will tell you below what else to put inside it. As you will see, R Studio and the R Project file will take care of the rest!</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>To use an existing directory</strong> (e.g., a directory you may have created for this course, or a thesis data analysis directory etc), in R Studio: <em>New Project/Existing Directory/Browse</em>, then <em>Create</em></li>
+</ol>
+<p>In both cases above, you will have a folder in your filesystem that you can treat like any other folder: copy it and save it to another place; save files to it in other programs; and so forth. You can even delete it, but that might be a bit counterproductive (even if harmless). As described above, the folder contains a special R Project file that only R Studio uses when you open the R Project. You can see the project file in your folder on the computer like any other file. It’s not hidden.</p>
+</div>
+<div id="preparing-the-r-project-directory" class="section level2">
+<h2><span class="header-section-number">2.6</span> Preparing the R project directory</h2>
+<p><strong>This is how I set up new directories/folders</strong>. It’s typically anal in that psych stats way. For now, use the names (in lower case; <strong>R is case sensitive</strong>) that I use below, so that the code I provide will always work. Don’t cut corners. When you have more confidence, by all means, come up with and use your own way of naming things if that works better for you. Whatever you do, just be consistent about it!</p>
+<p>Create two directories inside your R project directory (i.e., the directory you most likely just created above) named as shown below. If you are already in the root project directory in R Studio, you can do this with the <em>New Folder</em> button located in the top left of the <em>files</em> pane, that is itself located in the bottom right of the R Studio window. However, I suggest you just go into your new folder on the filesystem of your PC (e.g., File Explorer) or your Mac and create the new folders in there as usual. I want you to see that you can work seamlessly and transparently with the filesystem and in R Studio without any problems. Then, as always, once you have mastered a skill, go for the variations. As soon as you make the new folders, when you return to R Studio and click on the <em>files</em> pane (the will be a tab in the pane under where your <em>console</em> pane should now be!), you will find them listed there.</p>
+<ul>
+<li>Root Project Directory <em>[whatever directory you created for your work above]</em>
+<ul>
+<li>data directory <em>[i.e., use lower case and call it “data”]</em></li>
+<li>code directory <em>[i.e., call it “code”]</em></li>
+</ul></li>
+</ul>
+<p>Later, you can add more directories if you like but be consistent and do not use file/directory/folder names with spaces. Spaces are for Macs and Windows, not the real world! For example, you might want directories for graphics output, directories for writeups etc—anything to do with a project and not just R. Again, the R Studio project file just maps out the folders for R Studio and tells it what to focus on and what to ignore for a given project. You can have folders full of JPGs or PNGs or a folder with Microsoft Office docs or even a folder full of your increasingly redundant SPSS files. R Studio Projects are relaxed and tolerant. They will just show you the files in a given folder in the <em>file</em> pane and not blink an eyelid. Below is a figure showing an example set of folders from a project called <em>R_course_6020</em>. This person has an <em>images</em> subdirectory in their project and there are also some other non-R files sitting in the root directory (PDF, HMTL etc). As long as <em>your</em> project contains the <em>data</em> and <em>code</em> folders, you are good to go with this guide. Anything else is up to you.</p>
+<div class="figure">
+<img src="images/RStudioExampleFolders.png" alt="Figure 3 | Example folders in an R Project" />
+<p class="caption"><strong>Figure 3</strong> | Example folders in an R Project</p>
+</div>
+<p>All of my project directories follow the same naming convention. I even use a standardised naming system for code files for particular jobs (e.g., reading and fixing up raw data; scoring instruments and scales and setting up the variables for analyses; analyses that use exploratory or confirmatory factor analyses; analyses that use regression models etc; yes, I am definitely <em>that</em> guy, but I can always find an analysis!). If you have named your two new folders as above, later, you will be able to use R techniques I’ll cover soon to reference datasets very easily in your R code, avoiding errors such as from mistyping long pathnames or from shifting systems from uni to home (Win/Mac/*nix etc), or modifying your own computer’s filesystem (maybe even just changing the names or locations of a couple of folders). <em>Free tip</em>: this is not just for R, I do this for Stata etc too. It’s just common sense!</p>
+<div id="before-going-on-id-like-you-to-now-copy-the-course-files-into-the-r-project-directories." class="section level3">
+<h3><span class="header-section-number">2.6.1</span> Before going on, I’d like you to now copy the course files into the R project directories.</h3>
+<p>These will either be in the 6020PSY Microsoft Teams files tab or at a link that I will have shared. I want you to put any data files, ending in either <em>.sav</em> or <em>.csv</em>, into the <em>data</em> directory you created and any R code files, ending in <em>.R</em> into the <em>code</em> directory you created. You can put anything else you like in any other folders you may have created. As long as the two specified directories exist and contain the data and code files, respectively, it will be OK.</p>
+</div>
+</div>
+<div id="a-schema-for-how-r-works" class="section level2">
+<h2><span class="header-section-number">2.7</span> A Schema for How R Works</h2>
+<div id="r-has-a-lean-and-efficient-philosophy" class="section level3">
+<h3><span class="header-section-number">2.7.1</span> R has a lean and efficient philosophy</h3>
+<p>When you first start R up on your computer (whether via native R or in R Studio), it already has the capabilities to do all the stats you would need in a course like 6020PSY and all of its prerequisites. This is often referred to as <em>base R</em>, the version of R as is installed before any <em>extra components</em> are added. But… R is programmable. Users have written tens of thousands of additional modules, called <em>packages</em>, that significantly extend the capabilities of R. Some packages have been written by the actual statisticians who developed the new procedures. Some have been written by keen R users of differing levels of experience who have come up with useful additions to the capabilities of R. <em>Packages typically contain 2 or more functions</em>. As will be discussed below, the functions are the things that actually do the tasks in R. Packages, as the name suggests, are collections of usually specially written functions, and sometimes also data, to achieve an overarching goal. Often, packages will <em>depend</em> on other existing packages to perform their functions and by default such <em>dependencies</em> are checked and installed if necessary. Some examples of the types of things R packages can do are:</p>
+<ul>
+<li>new stats procedures (pretty much hot off the press);</li>
+<li>systems to optimise statistical workflow for specific disciplines (e.g., we do stats slightly differently in psychology vs disciplines like epidemiology and there is a fantastic package called <code>psych</code> by Bill Revelle at Northwestern for us)</li>
+<li>really cool things: e.g., take your regression output and make an APA table from it that you can output as a Word file or as a PDF</li>
+<li>put together a bunch of datasets that are related for some specific purpose so when you load the package they are all instantly available</li>
+</ul>
+<p>There are countless more things. It is impossible for one person to keep track of all of them. In later modules, I’ll discuss how to access R communities around the world to hear about cool new things that are taking off.</p>
+<p>After you have installed R for the first time on a new system, you can install new packages at any time. It doesn’t matter whether you remember that you will need or even that you know to install specific packages before you start. Many times:</p>
+<ol style="list-style-type: decimal">
+<li>people have become stuck doing an analysis,</li>
+<li>Googled a solution that points to an R package,</li>
+<li>that they then install on the fly,</li>
+<li>and start using then and there.</li>
+</ol>
+<p>Once installed, you can update packages as updates become available (I’ll show you how). You can uninstall them too. When you upgrade your installation of R with a new version as these become available (this is a regular occurrence) depending on the OS you can have all your packages copied over into the new system. R Studio also makes it very easy to install, keep track of, and update packages. As you will see, the R code to install new packages is very simple and many users keep a file that lists the installation of all the packages they come to use most and any time they need to (re-)install R somewhere new, they run this code file immediately and their packages are all set up. Again depending on the OS, some users maintain scripts that locate and install and modify the user’s preferred setup for R and R Studio any time they configure a new system.</p>
+<p><strong>A key part of the philosophy of R</strong> is that:</p>
+<ol style="list-style-type: decimal">
+<li>it is a lean system where only enough to do the jobs at hand is installed;</li>
+<li>but that can be upgraded very easily to do more specialised jobs.</li>
+</ol>
+<p>If you know you will want to do certain tasks that base R isn’t so clearly set up for (e.g., structural equation modelling; SEM) you will want to install the appropriate package (e.g., <code>lavaan</code>). Once the package is <em>installed</em> in R on your system it will be available to you. However, when you start R, it won’t <em>immediately</em> be available to your code without another step. In fact, this would be contrary to the philosophy above.</p>
+<p>An R user will probably not do something as involved as SEM every single time they use R. Therefore, why use up system resources and computer memory for a thing that often is not needed? The solution is to have packages loaded up into memory only during the session you are going to use them. This is similar to the way we all have to load up the <em>process.sps</em> macro in an SPSS session before we can use the process syntax to do mediation or moderation. In R, this becomes such a natural action that you find yourself doing it automatically (see below). It’s just not that complex in practice. In summary:</p>
+<ul>
+<li>Only bother <strong>installing</strong> a package (e.g., <code>install.packages(&quot;lavaan&quot;)</code>) if you know you want to use it at some point</li>
+<li>Only bother <strong>loading</strong> a package (e.g., <code>library(lavaan)</code>) if you are planning to use it <strong>in that session</strong>.
+<ul>
+<li>but if you have installed a package that you definitely want to have loaded <em>every</em> time you use R, you can set that up too!</li>
+</ul></li>
+</ul>
+</div>
+<div id="things-you-will-only-do-once-each-time-you-re-install-r-on-a-computer" class="section level3">
+<h3><span class="header-section-number">2.7.2</span> Things you will only do once each time you (re-)install R on a computer</h3>
+<ol style="list-style-type: decimal">
+<li>Download R from CRAN (where it lives) and install it</li>
+</ol>
+<ul>
+<li>see the <strong>Install Tips</strong> module for more detail</li>
+<li>upgrading base R with a new version (i.e., as of this writing, it is 3.6.3) varies a little by system
+<ul>
+<li><em>Linux</em>: automatic by including appropriate PPA as usual (see CRAN)</li>
+<li><em>Windows</em>: the <code>installr</code> package has <em>updater()</em> function for fairly painless upgrading (run native R as an adminstrator for this, not from inside R Studio!)</li>
+<li><em>Mac</em>: it’s a manual affair (like so many Mac things), but rest easy, it’s not very arduous.</li>
+</ul></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Download and install individual packages that you have decided you need</li>
+</ol>
+<ul>
+<li>each new package needs to be installed only once</li>
+<li>you will probably install some packages immediately and others many months or years later-it’s very dynamic</li>
+<li>updating packages varies a little by OS type but R Studio makes it very quick to upgrade all if necessary
+<ul>
+<li>the <em>packages</em> pane has an Update button, click this and either select all or specify through checkboxes as usual</li>
+<li>in R code itself, the <em>update.packages()</em> function can be called for very fine-grained use.</li>
+</ul></li>
+</ul>
+</div>
+<div id="things-you-will-only-need-to-do-once-in-any-new-r-session-on-any-type-of-computer" class="section level3">
+<h3><span class="header-section-number">2.7.3</span> Things you will only need to do once in any new R session on any type of computer</h3>
+<ul>
+<li>Load up the required package(s) before you actually include their functions in your code
+<ul>
+<li>if you are definitely planning to use a package (e.g., the <code>foreign</code> pacakge to read in SPSS data files), load it at the top of the code file. It’s just more cognitively efficient like that</li>
+<li>but you can also do it later, as the system is very flexible
+<ul>
+<li>e.g., you noodle away and occasionally find and load packages you didn’t realise you’d need</li>
+<li>when you have sorted everything out, you should go back and tidy up code as required</li>
+</ul></li>
+<li><em>advanced point</em>: Sometimes two or more packages that are widely used clash in that they have identically named functions that perform similar or different tasks. This can cause a few issues with written code but they are <em>very</em> easily fixed. For this reason, some packages, experience shows which, are more easily loaded just before use (or may not even need to be loaded to be used!). This is not a major issue and it is unlikely to cause problems for typical beginning users like people using this guide.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="objects-and-functions" class="section level2">
+<h2><span class="header-section-number">2.8</span> OBJECTS and FUNCTIONS</h2>
+<div id="the-last-important-r-concepts-before-looking-at-some-basic-code" class="section level3">
+<h3><span class="header-section-number">2.8.1</span> The last important R concepts before looking at some basic code</h3>
+<p><strong>R is classed as an object-oriented language</strong>. Whether or not you do any programming, the practical aspect of this is that R uses <em>objects</em> extensively in normal data analysis and this is a <strong>big difference between R and most GP stats software like SPSS</strong>. At first it may feel clunky, but it will swiftly become second nature. Again, in practice, it’s not that big a deal. It takes more to describe it! For example, you may recognise the code snippet below as doing a regression with variables from the BDRV data. Beliefs in intervention efficacy are regressed onto participant age, sex, whether they worked in licenced hospitality jobs (a dummy), and their social conservatism.</p>
+<p><code>lm(intervention~age + sex + hospitality + conservative, data=binge)</code></p>
+<p>If you run just this line as is, you will see fairly sparse output:</p>
+<pre><code>## 
+## Call:
+## lm(formula = intervention ~ age + sex + hospitality + conservative, 
+##     data = binge)
+## 
+## Coefficients:
+##    (Intercept)             age       sexfemale  hospitalityyes    conservative  
+##        2.44444         0.02695         0.24741        -0.10715         0.45265</code></pre>
+<p>R has done <em>exactly</em> as asked. It has run a regression and echoed the code and some basic output into the <em>console</em>… hmm… that’s R!? so what…? Instead, there is an R convention of sending the regression output into a container called an <em>object</em>. Note the tiny addition to the code.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">regint &lt;-<span class="st"> </span><span class="kw">lm</span>(intervention<span class="op">~</span>age <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>hospitality <span class="op">+</span><span class="st"> </span>conservative, <span class="dt">data=</span>binge)</a></code></pre></div>
+<p>This line will run a regression and store everything about it in an <em>object</em> called <em>regint</em>. You could have called the object anything you liked. Really experienced users often name such objects with highly abbreviated names like <em>fit</em> or <em>mod</em> or <em>f</em>! This is sort of analogous to using <em>compute</em> to create new variables in SPSS syntax. But here you are creating a new object. To begin with, you should stick with short object names that you can decipher as you go (and use lots of comments!) In the examples I’ll include in this and later modules, you will see the obvious object names I’ve used. Again, it is not that complex in practice.</p>
+<p><strong>This approach is very powerful</strong>. Objects can be: the output of procedures; datasets; new groups of variables; and more. R is really clever about figuring out what sort of object you have given it so 99% of the time, you won’t need to worry about keeping careful track of object type as you just won’t need to use it. It’s easier just to accept that there are objects and set about using them as I will have you do from here on. For example, the <em>lm()</em> (i.e., regression output) object created above (i.e., that I have called <em>regint</em>) can itself be fed into the input of other packages and functions to process it further. Working through this guide and further modules, you will see how extensively this approach is used. It is a key aspect of how data analysis will change by using R compared to what you are used to in SPSS. Using objects and functions like this, one can obtain:</p>
+<ul>
+<li>new stats</li>
+<li>specialised formatting of output</li>
+<li>useful plots</li>
+<li>and much more</li>
+</ul>
+<p>In fact, one of the first forays into programming you might make will probably be to write your <em>own</em> functions to help with repetitive or detailed tasks. It derives seamlessly from the R code you will use here.</p>
+</div>
+<div id="clearing-objects-a-line-of-code-you-will-see-again-and-again" class="section level3">
+<h3><span class="header-section-number">2.8.2</span> Clearing objects: a line of code you will see again and again</h3>
+<p>Because you are likely to create many objects in a typical R session, when you create R code files you should always start with a line that clears out the workspace. In this way, you will avoid issues with pre-existing objects from previous work in that same R session interfering with new work. The line below basically says, “make a list of every object in the workspace and then remove every object on that list!” You can copy it directly from here or from any of the R files associated with this guide and probably you could google it up and find it in R code around the world!</p>
+<p><code>rm(list=ls())</code></p>
+</div>
+</div>
+<div id="in-r-everything-we-do-is-a-function" class="section level2">
+<h2><span class="header-section-number">2.9</span> In R, everything we do is a <em>function()</em></h2>
+<div id="there-are-exceptions-to-the-below-but-this-will-get-everyone-on-the-same-page-to-begin-with" class="section level3">
+<h3><span class="header-section-number">2.9.1</span> There are exceptions to the below but this will get everyone on the same page to begin with</h3>
+<p>John Chambers of Stanford University, the inventor of S, the parent language of R, is credited with a very clever saying that you will soon experience! In R:</p>
+<ul>
+<li>Everything that exists is an object.</li>
+<li>Everything that happens is a function call.</li>
+</ul>
+<p>Have you noticed all the parentheses in the snippets of R code so far? For example, have a look at the <em>rm(list=ls())</em> above or the code that creates the <em>regint</em> object in the previous section. These parentheses (not brackets-[ ]!) usually mean there is a <em>function</em> involved. <strong>Everything command that you give R consists of at least one function</strong>. And because most functions will ultimately send their output to objects, with few exceptions, you will often see a structure like the below:</p>
+<div class="figure">
+<img src="images/ObjFunction.png" alt="Figure 4 | Schema for functions in R" />
+<p class="caption"><strong>Figure 4</strong> | Schema for <em>functions</em> in R</p>
+</div>
+<p>If you have a look above at the code snippets for the regression examples, you will see examples of objects and functions. The <em>lm()</em> function takes as input parameters the variables in the model (i.e., Y and X variables) and the name of the data object (i.e., binge) and sends its output to the <em>regint</em> object created in that code. You will see this same pattern over and over and it will make the reading of perhaps previously forbidding R code actually quite staightforward and increasingly so.</p>
+<p>As you have seen already, if an object is not specified, the output of functions is spat out into the console pane and this is often not optimal. Therefore, mostly you will specify an object (new or existing one) to receive output of the function. The way to do that is via the <em>assignment operator</em>. This is used so frequently that it is almost never referred to explicitly-it’s just there! In context, it looks like this:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">Object &lt;-<span class="st"> </span><span class="cf">function</span>()</a></code></pre></div>
+<p><em>(Yes, it’s a less than symbol followed by a hyphen)</em></p>
+<p>It would be read as <em>Object takes the output of Function</em> but most people just think of it as an arrow and rely on their nonverbal reasoning. If you wanted to, you could even turn it around:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="cf">function</span>() -&gt;<span class="st"> </span>Object</a></code></pre></div>
+<p>But that really isn’t necessary for most of us. Some people use = for assignment but I <strong>strongly</strong> discourage you from doing this. An R convention is to prefer the arrow for assignment (i.e., send the output of <em>this</em> to <em>that</em>; <em>regint &lt;- lm(…)</em>) and the = for setting parameters <em>inside</em> functions (i.e., make the value of <em>this</em> equal to <em>that</em>; <em>data = binge</em>). I will always follow that convention so if you want your <em>source</em> pane to match my examples, you need to do it the same way, otherwise you will be on your own.</p>
+<p>If the output of a function, such as <em>lm()</em> for a regression, is sent to an object that already exists, R will overwrite the object with whatever the new output is. It won’t ask. But if the code has been written sensibly, it’s very easy, even trivial, to fix it up and rerun as required. So if you realise you created an object and sent the wrong regression to it, just fix your code and send the correct regression. R will overwrite it and nothing else is required of you. Remember, this system of functions (and objects) may seem a little complex at first but it ultimately makes things a lot easier and strangely intuitive.</p>
+<p><strong>A powerful tool is the ability to <em>nest</em> 2 or more functions within each other</strong>. Functions are nested in R like Russian matryoshka dolls (see Figure 5).</p>
+<div class="figure">
+<img src="images/600px-Russian-Matroshka_no_bg.jpg" alt="Figure 5 | Russian matryoshka dolls that illustrate the concept of nesting; Original photo: User:Fanghong; Derivative work: User:Gnomz007 - removed background from File:Russian-Matroshka2.jpg, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=227816" />
+<p class="caption"><strong>Figure 5</strong> | Russian <em>matryoshka</em> dolls that illustrate the concept of nesting; Original photo: User:Fanghong; Derivative work: User:Gnomz007 - removed background from <a href="File:Russian-Matroshka2.jpg" class="uri">File:Russian-Matroshka2.jpg</a>, CC BY-SA 3.0, <a href="https://commons.wikimedia.org/w/index.php?curid=227816" class="uri">https://commons.wikimedia.org/w/index.php?curid=227816</a></p>
+</div>
+<p>The output of one function (e.g., a statistical analysis) is passed immediately to the input of the next function (e.g., a plotting function) with no intervention needed by the user. In R, one can easily nest 3 or 4 or more functions. This isn’t for fun but because that is how to build code to perform seemingly complex tasks from a series of steps. Each separate function can be simple in itself but nested together they perform a complex task. Usually, to figure out what is going on, start at the inside of the nested group and work back towards the outside. Some of the snippets of code that I’ll show you contain nested functions that you can paste into your own work. You will only need to change a couple of details to use them and by pasting them over and over you will start to understand what is going on with each separate bit.</p>
+</div>
+</div>
+<div id="end-of-module" class="section level2">
+<h2><span class="header-section-number">2.10</span> End of module</h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="module-3-addressing-files-reading-in-data-and-basic-statistics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
